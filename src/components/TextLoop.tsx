@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, cubicBezier, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const variants = {
@@ -6,9 +6,7 @@ const variants = {
     y: -20,
   },
   center: {
-    zIndex: 1,
     y: 0,
-    opacity: 1,
   },
   exit: {
     y: 20,
@@ -59,9 +57,8 @@ const TextLoop = ({ words }: { words: string[] }) => {
           exit="exit"
           className="absolute will-change-transform text-muted-foreground text-sm"
           transition={{
-            y: { type: "spring", stiffness: 300, damping: 200 },
-            opacity: { duration: 0.5 },
-            ease: "easeInOut",
+            y: { type: "tween", duration: 2 },
+            ease: cubicBezier(0, 0.8, 0.61, 0.91),
           }}
         >
           {words[index]}
