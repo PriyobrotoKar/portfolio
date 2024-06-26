@@ -1,0 +1,21 @@
+---
+import "@fontsource-variable/dm-sans";
+import "@/styles/globals.css";
+import NoiseOverlay from "@/components/NoiseOverlay.astro";
+import Spotlight from "@/components/Spotlight.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body class="dark dark:bg-background relative overflow-x-hidden">
+    <Spotlight />
+    <NoiseOverlay />
+    <slot />
+  </body>
+</html>

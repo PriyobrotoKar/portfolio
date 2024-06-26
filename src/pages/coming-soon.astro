@@ -1,0 +1,39 @@
+---
+import Social from "@/components/Social.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Animate from "@/components/Animate";
+---
+
+<SiteLayout>
+  <main class="h-svh relative overflow-hidden flex justify-center items-center">
+    <div
+      class="absolute will-change-auto tracking-tighter bottom-1/4 -z-20 -left-1/2 md:bottom-0 md:left-0 -rotate-90 md:rotate-0 text-[clamp(10rem,20vw,30rem)] font-bold leading-[0.6] text-muted"
+    >
+      {
+        "Coming soon".split(" ").map((word, ind) => {
+          return (
+            <Animate
+              client:load
+              initial={{ y: "20%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3 * ind + 1.5,
+                ease: "easeOut",
+              }}
+            >
+              <span>{word}</span>
+            </Animate>
+          );
+        })
+      }
+    </div>
+    <Social />
+  </main>
+</SiteLayout>
+
+<!-- <script>
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000);
+</script> -->

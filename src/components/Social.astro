@@ -1,0 +1,57 @@
+---
+import { RiGithubLine, RiTwitterXLine, RiLinkedinFill } from "@remixicon/react";
+import { Button } from "@/components/ui/button";
+import Animate from "./Animate";
+import TextLoop from "./TextLoop";
+
+const socials = [
+  {
+    icon: RiGithubLine,
+    link: "https://github.com/priyobrotokar",
+  },
+  {
+    icon: RiTwitterXLine,
+    link: "https://x.com/priyobrotokar",
+  },
+  {
+    icon: RiLinkedinFill,
+    link: "https://linkedin.com/in/priyobrotokar",
+  },
+];
+
+const roles = ["Frontend Developer", "Backend Developer", "Web Developer"];
+---
+
+<Animate
+  client:load
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1, ease: "easeOut" }}
+  className="flex gap-8 items-center will-change-transform"
+>
+  <div>
+    <h1 class="text-white text-xl">Priyobroto.</h1>
+    <TextLoop client:load words={roles} />
+  </div>
+  <div class="flex gap-2">
+    {
+      socials.map((social, ind) => {
+        const Icon = social.icon;
+        return (
+          <Animate
+            client:load
+            initial={{ y: "10%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: ind * 0.5 + 0.8 }}
+          >
+            <a target="_blank" href={social.link}>
+              <Button variant={"secondary"} size={"icon"}>
+                <Icon size={18} />
+              </Button>
+            </a>
+          </Animate>
+        );
+      })
+    }
+  </div>
+</Animate>
