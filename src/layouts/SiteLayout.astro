@@ -3,6 +3,7 @@ import "@fontsource-variable/dm-sans";
 import "@/styles/globals.css";
 import NoiseOverlay from "@/components/NoiseOverlay.astro";
 import Spotlight from "@/components/Spotlight.astro";
+import Header from "@/components/Header";
 ---
 
 <html lang="en">
@@ -16,6 +17,7 @@ import Spotlight from "@/components/Spotlight.astro";
   <body class="dark dark:bg-background relative overflow-x-hidden">
     <Spotlight />
     <NoiseOverlay />
+    <Header client:idle />
     <slot />
   </body>
 </html>

@@ -18,6 +18,7 @@ export default {
     extend: {
       fontSize: {
         sm: "0.75rem",
+        md: "0.875rem",
       },
       colors: {
         border: "hsl(var(--border))",
