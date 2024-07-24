@@ -1,4 +1,5 @@
 ---
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cosmic } from "@/lib/cosmic";
 const { objects: socials } = await cosmic.objects
@@ -8,21 +9,27 @@ const { objects: socials } = await cosmic.objects
 import Icon from "../Icon";
 ---
 
-<div class="space-x-3">
+<div class="flex gap-3">
   {
-    socials.map((social: any) => {
+    socials.map((social: any, i: number) => {
       return (
-        <Button
-          variant={social.title === "Mail" ? "default" : "secondary"}
-          size={social.title === "Mail" ? "lg" : "icon"}
+        <motion.div
+          client:load
+          initial={{ opacity: 0, scale: 0.9, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: i * 0.2 + 0.8, duration: 0.5 }}
         >
-          <Icon
-            client:load
-            iconName={`${social.metadata.iconfamily + social.title + social.metadata.iconstyle.value}`}
-          />
-          {/* <IconComponent size={18} /> */}
-          {social.title === "Mail" && <span>Contact</span>}
-        </Button>
+          <Button
+            variant={social.title === "Mail" ? "default" : "secondary"}
+            size={social.title === "Mail" ? "lg" : "icon"}
+          >
+            <Icon
+              client:load
+              iconName={`${social.metadata.iconfamily + social.title + social.metadata.iconstyle.value}`}
+            />
+            {social.title === "Mail" && <span>Contact</span>}
+          </Button>
+        </motion.div>
       );
     })
   }
