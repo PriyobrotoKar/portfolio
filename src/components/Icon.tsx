@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import type { IconType } from "react-icons";
 
 const loadIcons = (name: string) => {

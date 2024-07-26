@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TextLoop from "./TextLoop";
 import { roles } from "@/constants";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import { HamIcon, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
