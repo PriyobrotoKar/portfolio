@@ -14,6 +14,7 @@ export default {
     },
     fontFamily: {
       sans: ["DM Sans Variable", ...defaultTheme.fontFamily.sans],
+      serif: ["DM Serif Display", ...defaultTheme.fontFamily.serif],
     },
     extend: {
       fontSize: {

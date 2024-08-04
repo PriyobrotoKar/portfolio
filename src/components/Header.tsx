@@ -32,7 +32,7 @@ const Header = () => {
     <motion.header
       layout
       className={cn(
-        "max-w-screen-md  items-center space-y-8 px-6 py-8 mx-auto border-b border-transparent transition-[colors,backdrop-filter] duration-300 md:duration-0 fixed w-full md:relative top-0 backdrop-blur-noner z-40",
+        "max-w-screen-lg  items-center space-y-8 px-6 py-8 mx-auto border-b border-transparent transition-[colors,backdrop-filter] duration-300 md:duration-0 fixed w-full inset-x-0 top-0 backdrop-blur-noner z-40",
         toggleHeader &&
           "bg-black/70 border-border md:bg-transparent backdrop-blur-lg"
       )}
