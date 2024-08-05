@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import { cosmic } from "@/lib/cosmic";
+
+const { objects } = await cosmic.objects
+  .find({ type: "projects" })
+  .props("slug,title,metadata")
+  .depth(1);
+
+export async function getStaticPaths() {
+  //   return [
+  //     { params: { dog: "clifford" } },
+  //     { params: { dog: "rover" } },
+  //     { params: { dog: "spot" } },
+  //   ];
+  const { objects } = await cosmic.objects
+    .find({ type: "projects" })
+    .props("slug,title,metadata")
+    .depth(1);
+
+  return objects.map(({ slug }: { slug: string }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<SiteLayout>
+  <main class="pt-40">
+    <h1 class="text-8xl font-semibold text-center">{slug}</h1>
+  </main>
+</SiteLayout>
