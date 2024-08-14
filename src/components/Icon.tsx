@@ -16,7 +16,7 @@ const loadIcons = (name: string) => {
   }
 };
 
-const Icon = ({ iconName }: { iconName: string }) => {
+const Icon = ({ iconName, size }: { iconName: string; size?: number }) => {
   const [importedComp, setImportedComp] = useState<ReactElement | null>(null);
   useEffect(() => {
     const importComponent = async () => {
@@ -27,7 +27,7 @@ const Icon = ({ iconName }: { iconName: string }) => {
       const AnotherComponent = module[
         `${iconName}` as keyof typeof module
       ] as unknown as IconType;
-      setImportedComp(<AnotherComponent size={18} />);
+      setImportedComp(<AnotherComponent size={size || 18} />);
     };
 
     importComponent();

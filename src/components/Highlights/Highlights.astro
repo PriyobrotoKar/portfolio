@@ -14,14 +14,14 @@ const {
 
 const styles = [
   "rotate-[10deg] translate-y-20 scale-105",
-  "rotate-[4deg]",
-  "-rotate-12 translate-y-32 scale-110",
-  "-rotate-[20deg] ",
-  "-rotate-3 -translate-y-20 col-start-3",
+  "rotate-[4deg] -translate-y-20",
+  "-rotate-12 translate-y-10 scale-110",
+  "-rotate-[20deg] -translate-y-10 ",
+  "-rotate-3 -translate-y-32 col-start-3",
 ];
 ---
 
-<section class="min-h-[60svh] flex justify-start items-center">
+<section class="min-h-[60svh] flex justify-start items-center relative my-64">
   <h2
     class="text-8xl leading-tight w-fit mx-auto max-w-screen-lg bg-gradient-to-t from-neutral-600 to-white bg-clip-text text-transparent"
   >
@@ -30,13 +30,13 @@ const styles = [
     > and <span class="font-serif font-normal italic">Web experiences</span>.
   </h2>
   <div
-    class="absolute left-0 w-full max-h-screen opacity-50 -z-20 overflow-hidden"
+    class="absolute w-screen left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 max-h-screen opacity-20 -z-20 overflow-hidden"
   >
     <div
-      class="absolute w-full h-full bg-gradient-to-t from-background from-0% via-transparent to-background z-0"
+      class="absolute w-full h-screen bg-gradient-to-t from-background via-transparent to-background z-0"
     >
     </div>
-    <div class="relative -z-20 grid grid-cols-3 auto-cols-fr w-full gap-y-72">
+    <div class="relative -z-20 grid grid-cols-3 auto-cols-fr w-full gap-y-64">
       {
         details.highlights.map(
           ({ image }: { image: { url: string } }, i: number) => {

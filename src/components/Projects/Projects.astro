@@ -1,6 +1,7 @@
 ---
 import { cosmic } from "@/lib/cosmic";
 import Card from "../Card.astro";
+import Icon from "../Icon";
 
 const { objects } = await cosmic.objects
   .find({ type: "projects" })
@@ -13,11 +14,14 @@ const { objects } = await cosmic.objects
     objects.map(({ title, slug, metadata }: any) => {
       return (
         <Card href={`/projects/${slug}`}>
-          <div class="space-y-2">
-            <h2 class="text-2xl font-medium">{title}</h2>
-            <p class="text-muted-foreground line-clamp-2">
-              {metadata.overview}
-            </p>
+          <div class="flex gap-2 ">
+            <div class="space-y-2">
+              <h2 class="text-2xl font-medium">{title}</h2>
+              <p class="text-muted-foreground line-clamp-2">
+                {metadata.overview}
+              </p>
+            </div>
+            <Icon size={28} client:load iconName="RiArrowRightLine" />
           </div>
           <img
             class="absolute w-full translate-y-8 group-hover:translate-y-6 transition-all"
