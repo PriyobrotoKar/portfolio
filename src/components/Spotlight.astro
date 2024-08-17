@@ -1,5 +1,5 @@
 ---
-import Animate from "./Animate";
+import { motion } from "framer-motion";
 const config = {
   duration: 2,
   delay: 0,
@@ -7,7 +7,7 @@ const config = {
 ---
 
 <div class="absolute min-h-svh w-full inset-0 -z-10 overflow-hidden">
-  <Animate
+  <motion.div
     client:load
     initial={{ opacity: 0, x: "100%", scale: 0, rotate: 45 }}
     animate={{ opacity: 1, x: "0", scale: "100%", rotate: 45 }}
@@ -18,7 +18,7 @@ const config = {
     }}
     className="h-[85rem] w-[10rem] rounded-[50%] bg-accent/40 absolute -top-[70%] md:-top-[40rem] -right-1/2 md:left-[70%] blur-[22px] rotate-45"
   />
-  <Animate
+  <motion.div
     client:load
     initial={{ opacity: 0, x: "100%", scale: 0, rotate: 45 }}
     animate={{ opacity: 1, x: "0", scale: "100%", rotate: 45 }}

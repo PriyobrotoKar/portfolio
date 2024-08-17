@@ -1,0 +1,36 @@
+---
+import AvailableStatus from "../AvailableStatus.astro";
+import ContactForm from "./ContactForm";
+import LocalTime from "./LocalTime";
+---
+
+<section class="my-20 space-y-28 flex">
+  <div class="max-w-2xl space-y-12">
+    <div>
+      <AvailableStatus />
+      <h1
+        class="bg-gradient-to-t font-medium from-neutral-500 to-white text-transparent leading-normal bg-clip-text text-6xl"
+      >
+        Let's work together.
+      </h1>
+      <p class="text-muted-foreground max-w-md">
+        Always excited to team up with amazing individuals for interesting
+        projects. Let's bring our ideas to life!
+      </p>
+    </div>
+    <ContactForm />
+  </div>
+  <div
+    class="flex justify-center flex-grow min-w-64 font-semibold relative h-fit"
+  >
+    <img
+      src="/india.png"
+      alt="India"
+      class="absolute -z-10 top-0 scale-125 opacity-80"
+      style={{
+        mask: "radial-gradient(51.41% 51.22% at 50% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(115, 115, 115, 0.00) 100%)",
+      }}
+    />
+    <LocalTime client:load />
+  </div>
+</section>

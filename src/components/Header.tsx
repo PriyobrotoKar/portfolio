@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 const navLinks = [
   {
@@ -38,10 +39,7 @@ const Header = () => {
       )}
     >
       <motion.div layout className="flex justify-between">
-        <div>
-          <h1 className="text-white text-lg">Priyobroto.</h1>
-          <TextLoop words={roles} />
-        </div>
+        <Logo />
         <nav className="space-x-2 hidden md:block">
           <Button variant={"secondary"}>Work</Button>
           <Button variant={"secondary"}>About</Button>
