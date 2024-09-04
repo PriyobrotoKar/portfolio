@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 import LocalTime from "./LocalTime";
 ---
 
-<section class="my-20 space-y-28 flex">
+<section class="py-20 space-y-28 flex relative">
   <div class="max-w-2xl space-y-12">
     <div>
       <AvailableStatus />
@@ -32,5 +32,9 @@ import LocalTime from "./LocalTime";
       }}
     />
     <LocalTime client:load />
+  </div>
+  <div
+    class="bg-border h-0.5 w-screen absolute bottom-0 left-1/2 -translate-x-1/2"
+  >
   </div>
 </section>

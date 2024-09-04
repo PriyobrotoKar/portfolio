@@ -10,7 +10,6 @@ const LocalTime = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(getCurrentTime());
       setTime(getCurrentTime());
     }, 1000);
 
