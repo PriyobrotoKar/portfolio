@@ -1,3 +1,4 @@
+import { sendMail } from "@/lib/nodemailer";
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/types";
 import type { APIRoute } from "astro";
@@ -30,8 +31,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     if (existingSubmission) {
       //check if the submission was made in the last 12 hours
       const hasExpired =
-        new Date().getTime() - existingSubmission.updatedAt.getTime() >
-        12 * 60 * 60 * 1000;
+        new Date().getTime() - existingSubmission.updatedAt.getTime() > 1000;
 
       if (!hasExpired) {
         throw new Error("You have already submitted a form recently");
@@ -41,8 +41,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     //create or update the submission if it doesn't exist or has expired
     const submission = await prisma.submission.upsert({
       where: {
-        email: parsedData.email,
-        ip,
+        id: existingSubmission?.id,
       },
       update: {
         ...parsedData,
@@ -54,7 +53,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       },
     });
 
-    //TODO: send an email to the user
+    await sendMail(parsedData.email);
+
+    //TODO: Send a discord server notification
 
     return Response.json(
       {
