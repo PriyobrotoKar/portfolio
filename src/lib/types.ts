@@ -8,3 +8,8 @@ export const contactSchema = z.object({
     .min(1, { message: "A message is required" })
     .max(500, { message: "Message cannot be more than 500 letters" }),
 });
+
+export type ApiResponse = {
+  status: "error" | "success";
+  message: "string";
+};

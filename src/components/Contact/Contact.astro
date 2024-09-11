@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 import LocalTime from "./LocalTime";
 ---
 
-<section class="py-64 space-y-28 flex relative">
+<section class="py-64 flex relative">
   <div class="max-w-2xl space-y-12">
     <div>
       <AvailableStatus />
@@ -18,7 +18,7 @@ import LocalTime from "./LocalTime";
         projects. Let's bring our ideas to life!
       </p>
     </div>
-    <ContactForm />
+    <ContactForm client:load />
   </div>
   <div
     class="flex justify-center flex-grow min-w-64 font-semibold relative h-fit"

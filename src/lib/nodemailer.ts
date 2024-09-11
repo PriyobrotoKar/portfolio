@@ -4,7 +4,7 @@ const transporter = nodemailer.createTransport({
   service: "Gmail",
   host: process.env.SMTP_HOST!,
   port: Number(process.env.SMTP_PORT!),
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.SMTP_USER!,
     pass: process.env.SMTP_PASS!,
@@ -20,7 +20,6 @@ export const sendMail = async (emailTo: string) => {
       html: "<h1>Hello World</h1>",
     });
   } catch (error: any) {
-    console.log(error);
-    throw new Error(error.message);
+    console.log("Error while sending mail", error);
   }
 };

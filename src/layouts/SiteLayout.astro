@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import NoiseOverlay from "@/components/NoiseOverlay.astro";
 import Spotlight from "@/components/Spotlight.astro";
 import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/sonner";
 ---
 
 <html lang="en">
@@ -17,6 +18,7 @@ import Header from "@/components/Header";
   <body
     class="dark dark:bg-background relative pt-24 md:pt-0 overflow-x-hidden"
   >
+    <Toaster client:load richColors />
     <Spotlight />
     <NoiseOverlay />
     <Header client:idle />

@@ -1,8 +1,8 @@
+import sendDiscordNotification from "@/lib/discord";
 import { sendMail } from "@/lib/nodemailer";
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/types";
 import type { APIRoute } from "astro";
-import { z } from "zod";
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
@@ -12,7 +12,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
     const parsedData = contactSchema.parse(data);
 
-    //TODO: Save it in the database
     //check if the email or ip is already in the database
     const query = {
       OR: [
@@ -31,36 +30,39 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     if (existingSubmission) {
       //check if the submission was made in the last 12 hours
       const hasExpired =
-        new Date().getTime() - existingSubmission.updatedAt.getTime() > 1000;
+        new Date().getTime() - existingSubmission.updatedAt.getTime() >
+        12 * 60 * 60 * 1000;
 
       if (!hasExpired) {
         throw new Error("You have already submitted a form recently");
       }
+      //Update the expired submission
+      await prisma.submission.update({
+        where: {
+          id: existingSubmission.id,
+        },
+        data: {
+          ...parsedData,
+          ip,
+        },
+      });
+    } else {
+      //create the submission if it doesn't exist
+      await prisma.submission.create({
+        data: {
+          ...parsedData,
+          ip,
+        },
+      });
     }
 
-    //create or update the submission if it doesn't exist or has expired
-    const submission = await prisma.submission.upsert({
-      where: {
-        id: existingSubmission?.id,
-      },
-      update: {
-        ...parsedData,
-        ip,
-      },
-      create: {
-        ...parsedData,
-        ip,
-      },
-    });
-
-    await sendMail(parsedData.email);
-
-    //TODO: Send a discord server notification
+    await sendDiscordNotification(parsedData);
+    sendMail(parsedData.email);
 
     return Response.json(
       {
         status: "success",
-        message: "Contact form submitted successfully",
+        message: "Submitted successfully",
       },
       {
         status: 200,
