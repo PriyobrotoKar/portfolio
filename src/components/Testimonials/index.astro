@@ -1,5 +1,6 @@
 ---
 import GradientHeading from "../GradientHeading.astro";
+import TestimonialCarousel from "./TestimonialCarousel";
 
 const testimonials = [
   {
@@ -47,35 +48,11 @@ const testimonials = [
 ];
 ---
 
-<section class="my-56 space-y-16">
-  <GradientHeading className="text-6xl mx-0 font-medium max-w-xl leading-tight">
+<section class="mt-56">
+  <GradientHeading
+    className="text-6xl mb-16 mx-0 font-medium max-w-xl leading-tight"
+  >
     See what others are saying.
   </GradientHeading>
-  <div class="flex gap-10 flex-wrap">
-    {
-      testimonials.map((testimonial, i) => {
-        // if (i > 0) return;
-        return (
-          <div class="max-w-xs border border-border space-y-4 bg-card p-8 rounded-xl">
-            <div class="size-20 rounded-full overflow-hidden">
-              <img
-                class="w-full h-full object-cover "
-                src={testimonial.image}
-                alt={testimonial.name}
-                width="80"
-                height="80"
-              />
-            </div>
-            <div class="space-y-1.5">
-              <h3 class="font-medium text-2xl">{testimonial.name}</h3>
-              <p class="text-muted-foreground text-md">
-                {testimonial.designation}
-              </p>
-            </div>
-            <p class="text-md font-light ">{testimonial.testimonial}</p>
-          </div>
-        );
-      })
-    }
-  </div>
+  <TestimonialCarousel testimonials={testimonials} client:load />
 </section>
