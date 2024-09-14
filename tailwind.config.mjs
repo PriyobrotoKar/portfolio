@@ -73,11 +73,31 @@ export default {
         scroll: {
           to: { transform: "translate(calc(-50% - 0.25rem))" },
         },
+        border: {
+          "0%": {
+            transform: "translateX(-20%)",
+            "transform-origin": "30% 50%",
+            scale: "0.5 1",
+            opacity: "0%",
+          },
+          "10%,90%": {},
+          "30%,70%": {
+            opacity: "90%",
+            scale: "1",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+            "transform-origin": "200% 50%",
+            scale: "0.5 1",
+            opacity: "0%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         scroll: "scroll 30s linear infinite",
+        border: "border 5s ease-out forwards",
       },
     },
   },

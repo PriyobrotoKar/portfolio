@@ -6,6 +6,7 @@ import useEmblaCarousel, {
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import AnimatedBorderCard from "../AnimatedBorderCard";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -193,13 +194,17 @@ const CarouselItem = React.forwardRef<
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "transition-opacity duration-500 min-w-0 shrink-0 grow-0 basis-full opacity-20",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        "transition-opacity duration-500 min-w-0 shrink-0  grow-0 basis-full opacity-20",
+        orientation === "horizontal" ? "pl-0" : "pt-4",
         activeIndex === index && "opacity-100",
         className
       )}
       {...props}
-    />
+    >
+      <AnimatedBorderCard active={activeIndex === index}>
+        {props.children}
+      </AnimatedBorderCard>
+    </div>
   );
 });
 CarouselItem.displayName = "CarouselItem";
