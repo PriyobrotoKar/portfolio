@@ -22,8 +22,8 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
         plugins={[
           Autoplay({
             delay: 5000,
-            stopOnMouseEnter: true,
             stopOnInteraction: false,
+            stopOnMouseEnter: true,
           }),
         ]}
         itemsCount={_testimonials.length}

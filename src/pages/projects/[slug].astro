@@ -1,18 +1,10 @@
 ---
+import GradientHeading from "@/components/GradientHeading.astro";
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { cosmic } from "@/lib/cosmic";
-
-const { objects } = await cosmic.objects
-  .find({ type: "projects" })
-  .props("slug,title,metadata")
-  .depth(1);
+import { getDuration } from "@/lib/utils";
 
 export async function getStaticPaths() {
-  //   return [
-  //     { params: { dog: "clifford" } },
-  //     { params: { dog: "rover" } },
-  //     { params: { dog: "spot" } },
-  //   ];
   const { objects } = await cosmic.objects
     .find({ type: "projects" })
     .props("slug,title,metadata")
@@ -22,10 +14,80 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+const { object: project } = await cosmic.objects
+  .findOne({ type: "projects", slug })
+  .props("slug,title,metadata")
+  .depth(1);
 ---
 
 <SiteLayout>
-  <main class="pt-40">
-    <h1 class="text-8xl font-semibold text-center">{slug}</h1>
+  <main class="pt-40 space-y-14">
+    <GradientHeading className="text-8xl font-semibold text-center"
+      >{project.title}</GradientHeading
+    >
+    <div class="p-20 relative">
+      <img
+        src="/project_bg.svg"
+        alt="laptop frame"
+        width="1300"
+        height="400"
+        class="absolute top-0 left-1/2 -translate-x-1/2"
+      />
+      <img
+        src={project.metadata.thumbnail.url}
+        alt={project.title}
+        width="1200"
+        height="800"
+        class="shadow-2xl"
+      />
+      <div
+        class="w-[100vw] h-[40rem] rounded-[50%] -bottom-20 bg-indigo-500/10 blur-3xl -z-10 absolute left-1/2 -translate-x-1/2"
+      >
+      </div>
+    </div>
+
+    <section class="flex gap-10 text-muted-foreground">
+      <div class="flex-1 space-y-12">
+        <div class="">
+          <h2 class="text-xl font-semibold mb-4 text-foreground">Overview</h2>
+          <p>{project.metadata.overview}</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold mb-4 text-foreground">Challenges</h2>
+          <ul class="list-disc list-inside">
+            {
+              project.metadata.challenges.map((challenge: string) => {
+                return <li>{challenge}</li>;
+              })
+            }
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold mb-4 text-foreground">Timeline</h2>
+          <p>
+            {
+              getDuration(
+                project.metadata.started_on,
+                project.metadata.ended_on
+              )
+            } months,
+            <span class="text-foreground">Deployed in May 2024.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <div>
+          <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
+          <ul class="list-disc list-inside">
+            {
+              project.metadata.features.map((feature: string) => {
+                return <li>{feature}</li>;
+              })
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 </SiteLayout>
