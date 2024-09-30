@@ -1,8 +1,12 @@
 ---
 import GradientHeading from "@/components/GradientHeading.astro";
+import { Button } from "@/components/ui/button.tsx";
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { cosmic } from "@/lib/cosmic";
 import { getDuration } from "@/lib/utils";
+import TechStack from "./components/TechStack.astro";
+import Icon from "@/components/Icon";
+import NextProject from "./components/NextProject.astro";
 
 export async function getStaticPaths() {
   const { objects } = await cosmic.objects
@@ -21,7 +25,7 @@ const { object: project } = await cosmic.objects
 ---
 
 <SiteLayout>
-  <main class="pt-40 space-y-14">
+  <main class="py-40 space-y-14">
     <GradientHeading className="text-8xl font-semibold text-center"
       >{project.title}</GradientHeading
     >
@@ -41,53 +45,72 @@ const { object: project } = await cosmic.objects
         class="shadow-2xl"
       />
       <div
-        class="w-[100vw] h-[40rem] rounded-[50%] -bottom-20 bg-indigo-500/10 blur-3xl -z-10 absolute left-1/2 -translate-x-1/2"
+        class="w-full h-[40rem] rounded-[50%] -bottom-20 bg-indigo-500/10 blur-3xl -z-10 absolute left-1/2 -translate-x-1/2"
       >
       </div>
     </div>
 
-    <section class="flex gap-10 text-muted-foreground">
-      <div class="flex-1 space-y-12">
-        <div class="">
-          <h2 class="text-xl font-semibold mb-4 text-foreground">Overview</h2>
-          <p>{project.metadata.overview}</p>
-        </div>
-        <div>
-          <h2 class="text-xl font-semibold mb-4 text-foreground">Challenges</h2>
-          <ul class="list-disc list-inside">
-            {
-              project.metadata.challenges.map((challenge: string) => {
-                return <li>{challenge}</li>;
-              })
-            }
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-xl font-semibold mb-4 text-foreground">Timeline</h2>
-          <p>
-            {
-              getDuration(
-                project.metadata.started_on,
-                project.metadata.ended_on
-              )
-            } months,
-            <span class="text-foreground">Deployed in May 2024.</span>
-          </p>
-        </div>
+    <section class="text-muted-foreground space-y-10">
+      <div class="">
+        <h2 class="text-xl font-semibold mb-4 text-foreground">Overview</h2>
+        <p>{project.metadata.overview}</p>
       </div>
+      <div class="flex gap-10">
+        <div class="flex-1 space-y-12">
+          <div>
+            <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
+            <ul class="list-disc list-inside">
+              {
+                project.metadata.features.map((feature: string) => {
+                  return <li>{feature}</li>;
+                })
+              }
+            </ul>
+          </div>
+          <div>
+            <h2 class="text-xl font-semibold mb-4 text-foreground">Timeline</h2>
+            <p>
+              {
+                getDuration(
+                  project.metadata.started_on,
+                  project.metadata.ended_on
+                )
+              } months,
+              <span class="text-foreground">Deployed in May 2024.</span>
+            </p>
+          </div>
+        </div>
 
-      <div class="flex-1">
-        <div>
-          <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
-          <ul class="list-disc list-inside">
-            {
-              project.metadata.features.map((feature: string) => {
-                return <li>{feature}</li>;
-              })
-            }
-          </ul>
+        <div class="flex-1 space-y-14">
+          <div>
+            <h2 class="text-xl font-semibold mb-4 text-foreground">
+              Challenges
+            </h2>
+            <ul class="list-disc list-inside">
+              {
+                project.metadata.challenges.map((challenge: string) => {
+                  return <li>{challenge}</li>;
+                })
+              }
+            </ul>
+          </div>
+          <TechStack techs={project.metadata.tech_stack} />
+          <div class="space-x-4">
+            <a href={project.metadata.live_link}>
+              <Button variant={"secondary"}
+                ><Icon iconName="FiGlobe" client:load />Visit Site</Button
+              >
+            </a>
+            <a href={project.metadata.github_repo}>
+              <Button variant={"secondary"}
+                ><Icon iconName="FiGithub" client:load />View on Github</Button
+              >
+            </a>
+          </div>
         </div>
       </div>
     </section>
+    <hr class="border border-border" />
+    <NextProject next={project.metadata.next_project} />
   </main>
 </SiteLayout>

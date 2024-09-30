@@ -1,11 +1,44 @@
 ---
-const { href } = Astro.props;
+import Icon from "@/components/Icon";
+import { cn } from "@/lib/utils";
+
+interface Props {
+  href: string;
+  title: string;
+  size?: "small" | "large";
+  metadata: {
+    overview: string;
+    thumbnail: {
+      url: string;
+    };
+  };
+}
+
+const { href, metadata, title, size = "small" } = Astro.props;
 ---
 
 <a href={href}>
   <article
-    class="bg-card/80 border-border rounded-xl border p-10 group h-[25rem] relative overflow-hidden"
+    class={cn(
+      "bg-card/80 border-border rounded-xl border p-10 group h-[25rem] relative overflow-hidden",
+      size === "large" && "h-[45rem]"
+    )}
   >
-    <slot />
+    <div class="flex gap-2">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-medium">{title}</h2>
+        <p class="text-muted-foreground line-clamp-2">
+          {metadata.overview}
+        </p>
+      </div>
+      <Icon size={28} client:load iconName="RiArrowRightLine" />
+    </div>
+    <img
+      class="absolute w-full translate-y-8 group-hover:translate-y-6 transition-all"
+      src={metadata.thumbnail.url}
+      alt=""
+      width="300"
+      height="300"
+    />
   </article>
 </a>

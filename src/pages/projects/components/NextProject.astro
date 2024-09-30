@@ -1,0 +1,30 @@
+---
+import Card from "@/components/Card.astro";
+
+interface Props {
+  next: {
+    title: string;
+    slug: string;
+    metadata: {
+      overview: string;
+      thumbnail: {
+        url: string;
+      };
+    };
+  };
+}
+
+const { next } = Astro.props;
+---
+
+<section>
+  <h2 class="mb-10 text-4xl font-semibold text-muted-foreground">
+    Next Project
+  </h2>
+  <Card
+    href={`/projects/${next.slug}`}
+    title={next.title}
+    metadata={next.metadata}
+    size="large"
+  />
+</section>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 const getCurrentTime = () => {
-  const date = new Date().toLocaleTimeString("en-IN", { hourCycle: "h12" });
+  const date = new Date().toLocaleTimeString("en-IN", {
+    hourCycle: "h12",
+    timeZone: "Asia/Kolkata",
+  });
   return date.toUpperCase();
 };
 

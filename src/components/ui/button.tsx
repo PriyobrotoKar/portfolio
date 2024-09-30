@@ -49,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <span className="inline-flex items-center   justify-center whitespace-nowrap gap-2 drop-shadow-[0_0px_7px_rgba(255,255,255,0.35)]">
+        <span className="inline-flex items-center   justify-center whitespace-nowrap gap-2 drop-shadow-[0_0px_7px_rgba(255,255,255,0.30)]">
           {children}
         </span>
       </Comp>
