@@ -1,0 +1,18 @@
+---
+import GradientHeading from "@/components/GradientHeading.astro";
+import TabsSwitch from "@/pages/projects/components/TabsSwitch";
+---
+
+<div class="py-16 sm:py-40 sm:pb-24">
+  <div class="space-y-4">
+    <GradientHeading className="text-6xl font-semibold">Works</GradientHeading>
+    <p class="text-center text-xl text-muted-foreground max-w-lg mx-auto">
+      Crafting tailored, high-quality solutions with a blend of innovation and
+      technical expertise.
+    </p>
+  </div>
+</div>
+<TabsSwitch client:load />
+<section class="grid sm:grid-cols-2 gap-10 px-6">
+  <slot />
+</section>

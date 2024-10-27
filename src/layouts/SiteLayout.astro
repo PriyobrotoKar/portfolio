@@ -5,6 +5,7 @@ import NoiseOverlay from "@/components/NoiseOverlay.astro";
 import Spotlight from "@/components/Spotlight.astro";
 import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/Footer/Footer.astro";
 ---
 
 <html lang="en">
@@ -22,6 +23,7 @@ import { Toaster } from "@/components/ui/sonner";
     <Spotlight />
     <NoiseOverlay />
     <Header client:idle />
-    <div class="max-w-screen-lg mx-auto"><slot /></div>
+    <div class="max-w-screen-lg min-h-svh mx-auto"><slot /></div>
+    <Footer />
   </body>
 </html>

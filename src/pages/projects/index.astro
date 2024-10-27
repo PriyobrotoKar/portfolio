@@ -1,0 +1,25 @@
+---
+import Card from "@/components/Card.astro";
+import GradientHeading from "@/components/GradientHeading.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import WorkLayout from "@/layouts/WorkLayout.astro";
+import { cosmic } from "@/lib/cosmic";
+
+const { objects } = await cosmic.objects
+  .find({ type: "projects" })
+  .props("slug,title,metadata")
+  .depth(1)
+  .limit(6);
+---
+
+<SiteLayout>
+  <WorkLayout>
+    {
+      objects.map(({ title, slug, metadata }: any) => {
+        return (
+          <Card href={`/projects/${slug}`} title={title} metadata={metadata} />
+        );
+      })
+    }
+  </WorkLayout>
+</SiteLayout>

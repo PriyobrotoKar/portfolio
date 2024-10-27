@@ -20,8 +20,8 @@ const { href, metadata, title, size = "small" } = Astro.props;
 <a href={href}>
   <article
     class={cn(
-      "bg-card/80 border-border rounded-xl border p-10 group h-[25rem] relative overflow-hidden",
-      size === "large" && "h-[45rem]"
+      "bg-card/80 border-border rounded-xl border px-6 py-10 sm:p-10 h-[20rem] group md:h-[23rem] lg:h-[25rem] relative overflow-hidden",
+      size === "large" && "sm:h-[35rem] lg:h-[45rem]"
     )}
   >
     <div class="flex gap-2">

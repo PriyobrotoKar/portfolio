@@ -41,7 +41,9 @@ const Header = () => {
       <motion.div layout className="flex justify-between">
         <Logo />
         <nav className="space-x-2 hidden md:block">
-          <Button variant={"secondary"}>Work</Button>
+          <a href="/projects">
+            <Button variant={"secondary"}>Work</Button>
+          </a>
           <Button variant={"secondary"}>About</Button>
           <Button>Contact</Button>
         </nav>
