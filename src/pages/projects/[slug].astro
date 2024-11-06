@@ -7,6 +7,8 @@ import { getDuration } from "@/lib/utils";
 import Icon from "@/components/Icon";
 import NextProject from "@/components/NextProject.astro";
 import TechStack from "@/components/TechStack.astro";
+import { Markdown } from "astro-remote";
+import { number } from "astro:schema";
 
 export async function getStaticPaths() {
   const { objects } = await cosmic.objects
@@ -21,9 +23,12 @@ const { slug } = Astro.params;
 const { object: project } = await cosmic.objects
   .findOne({ type: "projects", slug })
   .props("slug,title,metadata")
+  .options({
+    media: {
+      props: "alt_text,type",
+    },
+  })
   .depth(1);
-
-console.log(project.metadata.next_project);
 ---
 
 <SiteLayout>
@@ -31,13 +36,18 @@ console.log(project.metadata.next_project);
     <GradientHeading className="text-6xl sm:text-8xl font-semibold text-center"
       >{project.title}</GradientHeading
     >
-    <div class="p-6 md:p-20 relative">
+    <div
+      style={`background-image: radial-gradient(circle farthest-side at 50% 0, ${project.metadata.primary_color}, #0000);`}
+      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-1/4 blur-3xl opacity-20 -z-10 absolute left-1/2 -translate-x-1/2"
+    >
+    </div>
+    <div class="p-6 md:p-20 relative -z-20">
       <img
         src="/project_bg.svg"
         alt="laptop frame"
         width="1300"
         height="400"
-        class="absolute top-0 left-1/2 -translate-x-1/2"
+        class="absolute top-0 left-1/2 -translate-x-1/2 z-0"
       />
       <img
         src={project.metadata.thumbnail.url}
@@ -47,7 +57,7 @@ console.log(project.metadata.next_project);
         class="shadow-2xl"
       />
       <div
-        class="w-full h-[40rem] rounded-[50%] -bottom-20 bg-indigo-500/10 blur-3xl -z-10 absolute left-1/2 -translate-x-1/2"
+        class="absolute bottom-20 h-full w-screen bg-gradient-to-b from-transparent to-background left-1/2 -translate-x-1/2"
       >
       </div>
     </div>
@@ -57,17 +67,11 @@ console.log(project.metadata.next_project);
         <h2 class="text-xl font-semibold mb-4 text-foreground">Overview</h2>
         <p>{project.metadata.overview}</p>
       </div>
-      <div class="flex flex-col md:flex-row gap-10">
+      <div class="flex prose-ol:space-y-1 flex-col md:flex-row gap-10">
         <div class="flex-1 space-y-12">
           <div>
             <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
-            <ul class="list-disc list-inside">
-              {
-                project.metadata.features.map((feature: string) => {
-                  return <li>{feature}</li>;
-                })
-              }
-            </ul>
+            <Markdown content={project.metadata.features_new} />
           </div>
           <div>
             <h2 class="text-xl font-semibold mb-4 text-foreground">Timeline</h2>
@@ -88,13 +92,7 @@ console.log(project.metadata.next_project);
             <h2 class="text-xl font-semibold mb-4 text-foreground">
               Challenges
             </h2>
-            <ul class="list-disc list-inside">
-              {
-                project.metadata.challenges.map((challenge: string) => {
-                  return <li>{challenge}</li>;
-                })
-              }
-            </ul>
+            <Markdown content={project.metadata.challenges_new} />
           </div>
           <TechStack techs={project.metadata.tech_stack} />
           <div class="sm:space-x-4">
@@ -110,6 +108,67 @@ console.log(project.metadata.next_project);
             </a>
           </div>
         </div>
+      </div>
+    </section>
+    <section
+      class="bg-card/80 relative rounded-xl border border-border py-12 px-8 shadow-[0px_12px_45px_5px_var(--tw-shadow-color)] overflow-hidden shadow-black"
+    >
+      <div
+        class="absolute -top-40 left-1/2 -translate-x-1/2 w-[30rem] blur-3xl bg-yellow-300/10 aspect-video rounded-[50%]"
+      >
+      </div>
+      <div class="space-y-2 mb-12">
+        <div
+          class="w-fit rounded-full bg-gradient-to-t mx-auto p-0.5 from-yellow-300/10 to-yellow-300"
+        >
+          <div class="bg-background rounded-full">
+            <div class="bg-yellow-300/10 p-1 rounded-full">
+              <Icon
+                client:load
+                size={24}
+                className="text-yellow-300"
+                iconName="RiStarSFill"
+              />
+            </div>
+          </div>
+        </div>
+        <h2
+          class="text-center text-md font-semibold tracking-widest text-muted-foreground uppercase"
+        >
+          Highlights
+        </h2>
+        <p class="text-lg font-semibold text-center">
+          Showcasing Major Milestones and the Key Features
+        </p>
+      </div>
+      <div class="space-y-12">
+        {
+          project.metadata.highlights.map(
+            (
+              highlight: { url: string; alt_text: string; type: string },
+              i: number
+            ) => (
+              <div class="text-muted-foreground space-y-4">
+                <img
+                  src={highlight.url}
+                  alt={highlight.alt_text}
+                  width="600"
+                  height="600"
+                  class="w-full rounded-xl border border-border"
+                />
+                <div class="flex items-end justify-end text-xs gap-2">
+                  <p>
+                    <span class="font-bold">{((i + 1) / 10).toFixed(1)}</span>
+                    {highlight.alt_text}
+                  </p>
+                  <span class="uppercase bg-border px-2 py-0.5 rounded-full ">
+                    {highlight.type.startsWith("image/") ? "Image" : "Video"}
+                  </span>
+                </div>
+              </div>
+            )
+          )
+        }
       </div>
     </section>
     <hr class="border border-border" />

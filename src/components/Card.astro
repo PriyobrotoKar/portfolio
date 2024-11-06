@@ -11,6 +11,7 @@ interface Props {
     thumbnail: {
       url: string;
     };
+    primary_color: string;
   };
 }
 
@@ -34,11 +35,16 @@ const { href, metadata, title, size = "small" } = Astro.props;
       <Icon size={28} client:load iconName="RiArrowRightLine" />
     </div>
     <img
-      class="absolute w-full translate-y-8 group-hover:translate-y-6 transition-all"
+      class="absolute w-full translate-y-8 group-hover:translate-y-6 transition-all duration-300"
       src={metadata.thumbnail.url}
       alt=""
       width="300"
       height="300"
     />
+    <div
+      style={`background-color: ${metadata.primary_color}`}
+      class="absolute w-full h-full translate-y-8 group-hover:translate-y-6 transition-all -z-10 blur-3xl opacity-0 group-hover:opacity-100 duration-300"
+    >
+    </div>
   </article>
 </a>

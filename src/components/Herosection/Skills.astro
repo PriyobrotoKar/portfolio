@@ -2,10 +2,12 @@
 import { motion } from "framer-motion";
 import { cosmic } from "@/lib/cosmic";
 
-const { objects: skills } = await cosmic.objects
+const { objects: _skills } = await cosmic.objects
   .find({ type: "skills" })
   .props("slug,title,metadata")
   .depth(1);
+
+const skills = _skills.concat(_skills);
 ---
 
 <div
@@ -33,17 +35,6 @@ const { objects: skills } = await cosmic.objects
               alt={skill.title}
             />
           </li>
-        );
-      })
-    }
-    {
-      skills.map((skill: any) => {
-        return (
-          <img
-            class="size-9 "
-            src={skill.metadata.logo.url}
-            alt={skill.title}
-          />
         );
       })
     }
