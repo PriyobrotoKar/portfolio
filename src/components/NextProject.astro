@@ -16,6 +16,9 @@ interface Props {
 }
 
 const { next } = Astro.props;
+if (!next) {
+  return null;
+}
 ---
 
 <section>

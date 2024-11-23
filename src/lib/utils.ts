@@ -14,5 +14,9 @@ export function getDuration(startDate: string, endDate: string) {
   const end = new Date(endDate);
   const diff = end.getTime() - start.getTime();
   const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-  return months;
+  if (months === 0) {
+    const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+    return `${weeks} weeks`;
+  }
+  return `${months} months`;
 }

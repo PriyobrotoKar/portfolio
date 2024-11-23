@@ -25,7 +25,7 @@ const { object: project } = await cosmic.objects
   .props("slug,title,metadata")
   .options({
     media: {
-      props: "alt_text,type",
+      props: "alt_text,type,metadata",
     },
   })
   .depth(1);
@@ -81,8 +81,18 @@ const { object: project } = await cosmic.objects
                   project.metadata.started_on,
                   project.metadata.ended_on
                 )
-              } months,
-              <span class="text-foreground">Deployed in May 2024.</span>
+              } ,
+              <span class="text-foreground"
+                >Deployed in {
+                  new Date(project.metadata.ended_on).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "long",
+                      year: "numeric",
+                    }
+                  )
+                }
+              </span>
             </p>
           </div>
         </div>
@@ -145,28 +155,46 @@ const { object: project } = await cosmic.objects
         {
           project.metadata.highlights.map(
             (
-              highlight: { url: string; alt_text: string; type: string },
+              highlight: {
+                url: string;
+                metadata: { data: string };
+                type: string;
+              },
               i: number
-            ) => (
-              <div class="text-muted-foreground space-y-4">
-                <img
-                  src={highlight.url}
-                  alt={highlight.alt_text}
-                  width="600"
-                  height="600"
-                  class="w-full rounded-xl border border-border"
-                />
-                <div class="flex items-end justify-end text-xs gap-2">
-                  <p>
-                    <span class="font-bold">{((i + 1) / 10).toFixed(1)}</span>
-                    {highlight.alt_text}
-                  </p>
-                  <span class="uppercase bg-border px-2 py-0.5 rounded-full ">
-                    {highlight.type.startsWith("image/") ? "Image" : "Video"}
-                  </span>
+            ) => {
+              console.log(highlight);
+              const isImage = highlight.type.startsWith("image/");
+              return (
+                <div class="text-muted-foreground space-y-4">
+                  {isImage ? (
+                    <img
+                      src={highlight.url}
+                      alt={highlight.metadata.data}
+                      width="600"
+                      height="600"
+                      class="w-full rounded-xl border border-border"
+                    />
+                  ) : (
+                    <video
+                      src={highlight.url}
+                      autoplay
+                      loop
+                      muted
+                      class="w-full rounded-xl border border-border"
+                    />
+                  )}
+                  <div class="flex items-end justify-end text-xs gap-2">
+                    <p>
+                      <span class="font-bold">{((i + 1) / 10).toFixed(1)}</span>
+                      {highlight.metadata.data}
+                    </p>
+                    <span class="uppercase bg-border px-2 py-0.5 rounded-full ">
+                      {isImage ? "Image" : "Video"}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )
+              );
+            }
           )
         }
       </div>
