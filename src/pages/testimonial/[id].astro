@@ -1,0 +1,22 @@
+---
+export const prerender = false;
+import SiteLayout from "@/layouts/SiteLayout.astro"
+import { prisma } from "@/lib/prisma";
+const {id} = Astro.params; 
+
+const testimonail = await prisma.testimonial.findUnique({
+  where:{
+    id
+  }
+})
+
+if(!testimonail){
+  return new Response(null, {status:404})
+}
+---
+
+<SiteLayout>
+  <div class="min-h-svh justify-center items-center flex">
+    {id}
+  </div>
+</SiteLayout>

@@ -6,6 +6,12 @@ import Spotlight from "@/components/Spotlight.astro";
 import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer/Footer.astro";
+
+interface Props {
+  showFooter?: boolean;
+}
+
+const {showFooter = true} = Astro.props;
 ---
 
 <html lang="en">
@@ -24,6 +30,6 @@ import Footer from "@/components/Footer/Footer.astro";
     <NoiseOverlay />
     <Header client:idle />
     <div class="max-w-screen-lg min-h-svh mx-auto"><slot /></div>
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>

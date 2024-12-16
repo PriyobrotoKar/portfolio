@@ -1,0 +1,11 @@
+---
+import {Button} from '@/components/ui/button'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { RiGoogleFill } from 'react-icons/ri'
+---
+
+<SiteLayout showFooter={false}>
+  <div class="min-h-svh flex justify-center items-center">
+    <Button><RiGoogleFill/>Login with Google</Button>
+  </div>
+</SiteLayout>
