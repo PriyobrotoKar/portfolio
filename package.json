@@ -14,6 +14,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.2",
     "@astrojs/vercel": "^7.8.2",
+    "@auth/core": "^0.37.4",
     "@cosmicjs/sdk": "^1.0.11",
     "@fontsource-variable/dm-sans": "^5.0.6",
     "@fontsource/dm-serif-display": "^5.0.20",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^18.3.0",
     "astro": "^4.16.7",
     "astro-remote": "^0.3.3",
+    "auth-astro": "^4.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.3.0",
@@ -42,13 +44,14 @@
     "react-icons": "^5.2.1",
     "sonner": "^1.5.0",
     "tailwind-gradient-mask-image": "^1.2.0",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.5.2"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
+    "prettier-plugin-astro": "^0.14.1",
     "prisma": "^5.19.1"
   }
 }
