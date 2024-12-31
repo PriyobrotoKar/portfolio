@@ -1,14 +1,15 @@
 ---
 export const prerender = false
 import { type Message } from '@/lib/types'
+import ChatScreen from '@/components/ChatScreen'
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import { cosmic } from '@/lib/cosmic'
 import { prisma } from '@/lib/prisma'
-import { RiEmojiStickerLine, RiArrowUpLine } from 'react-icons/ri'
 const { id } = Astro.params
-import { Input } from '@/components/ui/input'
-import ChatMessageGroup from '@/components/ChatMessageGroup'
-import { Button } from '@/components/ui/button'
+import { getSession } from 'auth-astro/server'
+import ChatInput from '@/components/ChatInput'
+
+const session = await getSession(Astro.request)
 
 const {
   object: { metadata: details }
@@ -29,43 +30,18 @@ const testimonail = await prisma.testimonial.findUnique({
 if (!testimonail) {
   return new Response(null, { status: 404 })
 }
-
-const messages: Message[][] = [
-  [
-    `Hello, ${testimonail.name} 👋`,
-    {
-      message:
-        'Before continuing, can you please login with your google account for authentication.',
-      type: 'LOGIN'
-    }
-  ]
-]
 ---
 
 <SiteLayout showFooter={false}>
   <div class="min-h-svh w-full mx-auto max-w-screen-sm items-end flex flex-col">
-    <div class="flex-1 flex items-end w-full">
-      {
-        messages.map((messages) => (
-          <ChatMessageGroup client:load details={details} messages={messages} />
-        ))
-      }
-    </div>
-    <div
-      class="overflow-hidden mb-12 bg-card rounded-lg w-full relative z-20 border border-border shadow-[0px_12px_24px_0px_var(--tw-shadow-color)] shadow-black/80"
-    >
-      <Input
-        disabled
-        placeholder="Type a new message..."
-        className="focus-visible:ring-0"
-      />
-      <div class="flex justify-between px-4 pb-4 items-end">
-        <div class="flex gap-2 items-center">
-          <RiEmojiStickerLine />
-          0 / 80
-        </div>
-        <Button size={'icon'}><RiArrowUpLine /> </Button>
-      </div>
-    </div>
+    <ChatScreen
+      client:load
+      details={{
+        ...details,
+        name: testimonail.name
+      }}
+      session={session}
+    />
+    <ChatInput client:load />
   </div></SiteLayout
 >

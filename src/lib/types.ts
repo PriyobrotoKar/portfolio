@@ -1,3 +1,5 @@
+import type { testimonial } from '@prisma/client'
+import type { Omit } from '@prisma/client/runtime/library'
 import { z } from 'astro/zod'
 
 export const contactSchema = z.object({
@@ -19,9 +21,11 @@ export type ApiResponse = {
   message: 'string'
 }
 
-export type Message =
-  | {
-      message: string
-      type: 'LOGIN'
-    }
-  | string
+export type Message = {
+  message: (...args: string[]) => string
+  type?: 'LOGIN' | 'QUESTION' | 'ANSWER'
+  field?: keyof Omit<
+    testimonial,
+    'id' | 'createdAt' | 'updatedAt' | 'email' | 'name'
+  >
+}
