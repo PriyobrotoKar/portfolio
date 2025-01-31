@@ -10,6 +10,8 @@ import { useAtom } from 'jotai'
 import { currentQuestionAtom } from '@/lib/atoms'
 
 interface ChatMessageGroupProps {
+  groupInd: number
+  scrollToBottom: () => void
   messages: Message[]
   session: Session | null
   details: {
@@ -17,15 +19,22 @@ interface ChatMessageGroupProps {
     profile_picture: {
       url: string
     }
+    clientEmail: string
   }
 }
 
 export default function ChatMessageGroup({
+  scrollToBottom,
+  groupInd,
   messages,
   details,
   session
 }: ChatMessageGroupProps): React.JSX.Element {
-  const initialMessages = session ? messages.slice(0, 1) : [messages[0]]
+  const initialMessages = session
+    ? groupInd === 1
+      ? messages
+      : messages.slice(0, 1)
+    : [messages[0]]
   const [msgs, setMsgs] = useState(initialMessages)
   const isAnswer = messages.filter((msg) => msg.type === 'ANSWER').length > 0
 
@@ -58,6 +67,7 @@ export default function ChatMessageGroup({
           return (
             <ChatMessage
               key={ind}
+              scrollToBottom={scrollToBottom}
               session={session}
               message={message}
               details={details}
@@ -76,12 +86,14 @@ export default function ChatMessageGroup({
 
 interface ChatMessageProps {
   className?: string | (string | boolean)[]
+  scrollToBottom: () => void
   message: Message
   details: {
     name: string
     profile_picture: {
       url: string
     }
+    clientEmail: string
   }
   session: Session | null
   nextMessage: () => void
@@ -90,11 +102,13 @@ interface ChatMessageProps {
 const ChatMessage = ({
   className,
   message,
+  scrollToBottom,
   nextMessage,
   session,
   details
 }: ChatMessageProps) => {
   useEffect(() => {
+    scrollToBottom()
     const timeout = setTimeout(() => {
       nextMessage()
     }, 1000)
@@ -128,6 +142,7 @@ const RichMessage = ({
     profile_picture: {
       url: string
     }
+    clientEmail: string
   }
 }) => {
   const setCurrentQuestion = useAtom(currentQuestionAtom)[1]
@@ -137,7 +152,7 @@ const RichMessage = ({
       <div className="space-y-2 pb-1">
         <p>{message.message()}</p>
         <Button
-          disabled={!!session}
+          disabled={!!session && session.user?.email === details.clientEmail}
           onClick={async () => {
             await signIn('google')
           }}

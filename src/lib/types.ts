@@ -13,7 +13,22 @@ export const contactSchema = z.object({
 
 export const testimonialSchema = z.object({
   name: z.string().min(1, { message: 'Name is required!' }),
-  email: z.string().email().min(1, { message: 'Email is required.' })
+  email: z.string().email().min(1, { message: 'Email is required.' }),
+  designation: z.string().min(1, { message: 'Designation is required.' }),
+  message: z
+    .string()
+    .min(1, { message: 'A message is required' })
+    .max(80, { message: 'Message cannot be more than 500 letters' })
+})
+
+export const createTestimonialSchema = testimonialSchema.pick({
+  name: true,
+  email: true
+})
+
+export const submitTestimonialSchema = testimonialSchema.pick({
+  designation: true,
+  message: true
 })
 
 export type ApiResponse = {
@@ -23,7 +38,7 @@ export type ApiResponse = {
 
 export type Message = {
   message: (...args: string[]) => string
-  type?: 'LOGIN' | 'QUESTION' | 'ANSWER'
+  type?: 'LOGIN' | 'QUESTION' | 'ANSWER' | 'ERROR'
   field?: keyof Omit<
     testimonial,
     'id' | 'createdAt' | 'updatedAt' | 'email' | 'name'

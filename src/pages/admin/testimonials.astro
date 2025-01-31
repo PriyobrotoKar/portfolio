@@ -1,0 +1,10 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import TestimonialTable from '@/components/TestimonialTable.tsx'
+---
+
+<SiteLayout>
+  <div class="py-32">
+    <TestimonialTable client:load />
+  </div>
+</SiteLayout>

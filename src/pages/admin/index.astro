@@ -1,59 +1,68 @@
 ---
-import SiteLayout from "@/layouts/SiteLayout.astro"
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { LinkIcon } from "lucide-react";
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { LinkIcon } from 'lucide-react'
 ---
 
 <SiteLayout>
-  <div class="min-h-svh flex flex-col gap-8 max-w-sm mx-auto justify-center ">
+  <div class="min-h-svh flex flex-col gap-8 max-w-sm mx-auto justify-center">
     <div class="space-y-1">
       <h1 class="text-2xl font-semibold">Create a new Testimonial URL</h1>
-      <p class="text-muted-foreground">Enter the email address of that person</p>
+      <p class="text-muted-foreground">
+        Enter the email address of that person
+      </p>
     </div>
     <form class="space-y-8 text-center" onsubmit="return false">
       <div class="space-y-2">
-        <Input id="name" type="text" placeholder="Name"/>
-        <Input id="email" type="email" placeholder="Email"/>
+        <Input id="name" type="text" placeholder="Name" />
+        <Input id="email" type="email" placeholder="Email" />
       </div>
-      <Button id="submitBtn"><LinkIcon size={18}/>Get URL</Button>
+      <div class="flex gap-2 justify-center">
+        <a href="/admin/testimonials">
+          <Button type="button" variant={'secondary'} className="h-full"
+            >View Testimonials</Button
+          >
+        </a>
+        <Button id="submitBtn"><LinkIcon size={18} />Get URL</Button>
+      </div>
     </form>
   </div>
 </SiteLayout>
 
 <script>
-import { toast } from "sonner";
+  import { toast } from 'sonner'
 
-  const emailInput = document.getElementById('email') as HTMLInputElement;
-  const nameInput = document.getElementById('name') as HTMLInputElement;
-  const submitBtn = document.getElementById('submitBtn');
+  const emailInput = document.getElementById('email') as HTMLInputElement
+  const nameInput = document.getElementById('name') as HTMLInputElement
+  const submitBtn = document.getElementById('submitBtn')
 
-  const createTestimonial= async (email:string,name:string)=>{
-    const response = await fetch('/api/testimonial',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
+  const createTestimonial = async (email: string, name: string) => {
+    const response = await fetch('/api/testimonial', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
-      body:JSON.stringify({email,name})
-    });
-    const data = await response.json();
+      body: JSON.stringify({ email, name })
+    })
+    const data = await response.json()
     toast(data.message)
     copyURL(data.id)
   }
 
-const copyURL = async (id:string)=>{
-  const url = `${window.location.origin}/testimonial/${id}`;
-  await navigator.clipboard.writeText(url);
-}
+  const copyURL = async (id: string) => {
+    const url = `${window.location.origin}/testimonial/${id}`
+    await navigator.clipboard.writeText(url)
+  }
 
-  submitBtn?.addEventListener('click',async()=>{
-    const email = emailInput.value;
-    const name = nameInput.value;
-    if(!email || !name){
-      return;
+  submitBtn?.addEventListener('click', async () => {
+    const email = emailInput.value
+    const name = nameInput.value
+    if (!email || !name) {
+      return
     }
-    submitBtn.setAttribute('disabled','true');
-    await createTestimonial(email,name);
-    submitBtn.removeAttribute('disabled');
+    submitBtn.setAttribute('disabled', 'true')
+    await createTestimonial(email, name)
+    submitBtn.removeAttribute('disabled')
   })
 </script>

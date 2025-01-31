@@ -41,3 +41,9 @@ export const messages: Message[][] = [
     }
   ]
 ]
+
+export const errorMessage: Message = {
+  message: () =>
+    'Sorry, email address is invalid 🙁. Please try to login with the email address that you have provided.',
+  type: 'ERROR'
+}

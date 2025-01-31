@@ -8,10 +8,17 @@ import type { testimonial } from '@prisma/client'
 import type { Message } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { Textarea } from './ui/textarea'
+import { messages as MSGS } from '@/constants'
 
 const MAX_LIMIT = 80
 
-export default function ChatInput(): React.JSX.Element {
+interface ChatInputProps {
+  testimonialId: string
+}
+
+export default function ChatInput({
+  testimonialId
+}: ChatInputProps): React.JSX.Element {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [messages, setMessages] = useAtom(chatMessagesAtom)
   const [currentQuestion] = useAtom(currentQuestionAtom)
@@ -33,8 +40,6 @@ export default function ChatInput(): React.JSX.Element {
 
   const handleSubmit = () => {
     if (!currentQuestion) return
-
-    console.log('submitting', currentQuestion, input)
     setData((prev) => {
       return {
         ...prev,
@@ -50,6 +55,21 @@ export default function ChatInput(): React.JSX.Element {
     setInput('')
   }
 
+  const submitTestimonial = async () => {
+    const response = await fetch(`/api/testimonial/${testimonialId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await response.json()
+    if (result.status === 'error') {
+      console.error(result.message)
+      return
+    }
+  }
+
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = '0px'
@@ -58,8 +78,20 @@ export default function ChatInput(): React.JSX.Element {
     }
   }, [textareaRef, input])
 
+  useEffect(() => {
+    const isAllQuestionsAnswered = () => {
+      return Object.entries(data).every(([key, value]) => {
+        return value !== ''
+      })
+    }
+
+    if (isAllQuestionsAnswered()) {
+      submitTestimonial()
+    }
+  }, [data])
+
   return (
-    <div className="overflow-hidden mb-12 bg-card rounded-lg w-full relative z-20 border border-border shadow-[0px_12px_24px_0px_var(--tw-shadow-color)] shadow-black/80">
+    <div className="mb-8 bg-card rounded-lg w-full relative z-20 border border-border shadow-[0px_12px_24px_0px_var(--tw-shadow-color)] shadow-black/80">
       <Textarea
         ref={textareaRef}
         placeholder="Type a new message..."

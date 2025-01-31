@@ -33,15 +33,16 @@ if (!testimonail) {
 ---
 
 <SiteLayout showFooter={false}>
-  <div class="min-h-svh w-full mx-auto max-w-screen-sm items-end flex flex-col">
+  <div class="h-svh w-full mx-auto max-w-screen-sm items-end flex flex-col">
     <ChatScreen
       client:load
       details={{
         ...details,
-        name: testimonail.name
+        name: testimonail.name,
+        clientEmail: testimonail.email
       }}
       session={session}
     />
-    <ChatInput client:load />
+    <ChatInput testimonialId={testimonail.id} client:load />
   </div></SiteLayout
 >
