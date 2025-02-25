@@ -44,6 +44,8 @@ export default function ChatMessageGroup({
     }
   }
 
+  console.log(session?.user?.image)
+
   return (
     <motion.div
       layout="preserve-aspect"
@@ -53,7 +55,9 @@ export default function ChatMessageGroup({
     >
       <div>
         <img
-          src={details.profile_picture.url}
+          src={
+            isAnswer ? session?.user?.image || '' : details.profile_picture.url
+          }
           width="48"
           height="48"
           alt="/"

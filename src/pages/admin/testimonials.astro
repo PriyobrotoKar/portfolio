@@ -1,10 +1,17 @@
 ---
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import TestimonialTable from '@/components/TestimonialTable.tsx'
+import { prisma } from '@/lib/prisma'
+
+const getTestimonials = async () => {
+  return prisma.testimonial.findMany()
+}
+
+const testimonials = await getTestimonials()
 ---
 
 <SiteLayout>
   <div class="py-32">
-    <TestimonialTable client:load />
+    <TestimonialTable testimonials={testimonials} client:load />
   </div>
 </SiteLayout>

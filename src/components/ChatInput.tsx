@@ -9,15 +9,18 @@ import type { Message } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { Textarea } from './ui/textarea'
 import { messages as MSGS } from '@/constants'
+import type { Session } from '@auth/core/types'
 
 const MAX_LIMIT = 80
 
 interface ChatInputProps {
   testimonialId: string
+  session: Session | null
 }
 
 export default function ChatInput({
-  testimonialId
+  testimonialId,
+  session
 }: ChatInputProps): React.JSX.Element {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [messages, setMessages] = useAtom(chatMessagesAtom)
@@ -33,7 +36,8 @@ export default function ChatInput({
     >
   >({
     designation: '',
-    message: ''
+    message: '',
+    profilePicture: session?.user?.image || ''
   })
 
   const isQuestion = messages[messages.length - 1][0].type === 'QUESTION'

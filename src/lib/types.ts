@@ -15,6 +15,7 @@ export const testimonialSchema = z.object({
   name: z.string().min(1, { message: 'Name is required!' }),
   email: z.string().email().min(1, { message: 'Email is required.' }),
   designation: z.string().min(1, { message: 'Designation is required.' }),
+  profilePicture: z.string().min(1, { message: 'Profile picture is required' }),
   message: z
     .string()
     .min(1, { message: 'A message is required' })
@@ -28,7 +29,8 @@ export const createTestimonialSchema = testimonialSchema.pick({
 
 export const submitTestimonialSchema = testimonialSchema.pick({
   designation: true,
-  message: true
+  message: true,
+  profilePicture: true
 })
 
 export type ApiResponse = {

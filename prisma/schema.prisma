@@ -29,6 +29,7 @@ model testimonial {
   name        String
   designation String?
   message     String?
+  profilePicture String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
