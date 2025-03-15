@@ -1,12 +1,12 @@
 ---
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { cosmic } from "@/lib/cosmic";
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { cosmic } from '@/lib/cosmic'
 const { objects: socials } = await cosmic.objects
-  .find({ type: "socials" })
-  .props("slug,title,metadata")
-  .depth(1);
-import Icon from "../Icon";
+  .find({ type: 'socials' })
+  .props('slug,title,metadata')
+  .depth(1)
+import Icon from '../Icon'
 ---
 
 <div class="flex gap-3">
@@ -20,17 +20,17 @@ import Icon from "../Icon";
           transition={{ delay: i * 0.2 + 0.8, duration: 0.5 }}
         >
           <Button
-            variant={social.title === "Mail" ? "default" : "secondary"}
-            size={social.title === "Mail" ? "lg" : "icon"}
+            variant={social.title === 'Mail' ? 'default' : 'secondary'}
+            size={social.title === 'Mail' ? 'lg' : 'icon'}
           >
             <Icon
               client:load
               iconName={`${social.metadata.iconfamily + social.title + social.metadata.iconstyle.value}`}
             />
-            {social.title === "Mail" && <span>Contact</span>}
+            {social.title === 'Mail' && <span>Contact</span>}
           </Button>
         </motion.div>
-      );
+      )
     })
   }
 </div>

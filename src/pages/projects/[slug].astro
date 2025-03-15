@@ -1,43 +1,68 @@
 ---
-import GradientHeading from "@/components/GradientHeading.astro";
-import { Button } from "@/components/ui/button.tsx";
-import SiteLayout from "@/layouts/SiteLayout.astro";
-import { cosmic } from "@/lib/cosmic";
-import { getDuration } from "@/lib/utils";
-import Icon from "@/components/Icon";
-import NextProject from "@/components/NextProject.astro";
-import TechStack from "@/components/TechStack.astro";
-import { Markdown } from "astro-remote";
+import GradientHeading from '@/components/GradientHeading.astro'
+import { Button } from '@/components/ui/button.tsx'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { cosmic } from '@/lib/cosmic'
+import { getDuration } from '@/lib/utils'
+import Icon from '@/components/Icon'
+import NextProject from '@/components/NextProject.astro'
+import TechStack from '@/components/TechStack.astro'
+import { Markdown } from 'astro-remote'
+import { Mail } from 'lucide-react'
 
 export async function getStaticPaths() {
   const { objects } = await cosmic.objects
-    .find({ type: "projects" })
-    .props("slug,title,metadata")
-    .depth(1);
+    .find({ type: 'projects' })
+    .props('slug,title,metadata')
+    .depth(1)
 
-  return objects.map(({ slug }: { slug: string }) => ({ params: { slug } }));
+  return objects.map(({ slug }: { slug: string }) => ({ params: { slug } }))
 }
 
-const { slug } = Astro.params;
+const { slug } = Astro.params
 const { object: project } = await cosmic.objects
-  .findOne({ type: "projects", slug })
-  .props("slug,title,metadata")
+  .findOne({ type: 'projects', slug })
+  .props('slug,title,metadata')
   .options({
     media: {
-      props: "alt_text,type,metadata",
-    },
+      props: 'alt_text,type,metadata'
+    }
   })
-  .depth(1);
+  .depth(1)
+
+const isClientProject = project.metadata.type === 'Client'
 ---
 
 <SiteLayout>
-  <main class="py-16 sm:py-40 space-y-14 px-6">
-    <GradientHeading className="text-6xl sm:text-8xl font-semibold text-center"
-      >{project.title}</GradientHeading
-    >
+  <main class="py-16 sm:py-40 space-y-20 px-6">
+    <div class="space-y-7 text-center">
+      <GradientHeading
+        className="text-6xl sm:text-8xl font-semibold text-center"
+        >{project.title}</GradientHeading
+      >
+      {
+        isClientProject && (
+          <a href="https://peerbuild.tech" class="inline-block">
+            <h2 class="text-md text-muted-foreground leading-tight flex group items-end gap-4 justify-center">
+              A project under
+              <div class="flex items-end gap-2">
+                <img
+                  src="/peerbuild.svg"
+                  alt="Peerbuild Studios"
+                  width="165"
+                  height="29"
+                  class="opacity-50 group-hover:opacity-100 duration-500 transition-opacity"
+                />
+                Studios
+              </div>
+            </h2>
+          </a>
+        )
+      }
+    </div>
     <div
       style={`background-image: radial-gradient(circle farthest-side at 50% 0, ${project.metadata.primary_color}, #0000);`}
-      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-1/4 blur-3xl opacity-20 -z-10 absolute left-1/2 -translate-x-1/2"
+      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-[10%] blur-3xl opacity-10 -z-20 absolute left-1/2 -translate-x-1/2"
     >
     </div>
     <div class="p-6 md:p-20 relative -z-20">
@@ -80,14 +105,14 @@ const { object: project } = await cosmic.objects
                   project.metadata.started_on,
                   project.metadata.ended_on
                 )
-              } ,
+              },
               <span class="text-foreground"
                 >Deployed in {
                   new Date(project.metadata.ended_on).toLocaleDateString(
-                    "en-US",
+                    'en-US',
                     {
-                      month: "long",
-                      year: "numeric",
+                      month: 'long',
+                      year: 'numeric'
                     }
                   )
                 }
@@ -106,12 +131,12 @@ const { object: project } = await cosmic.objects
           <TechStack techs={project.metadata.tech_stack} />
           <div class="sm:space-x-4">
             <a href={project.metadata.live_link}>
-              <Button variant={"secondary"}
+              <Button variant={'secondary'}
                 ><Icon iconName="FiGlobe" client:load />Visit Site</Button
               >
             </a>
             <a href={project.metadata.github_repo}>
-              <Button variant={"secondary"}
+              <Button variant={'secondary'}
                 ><Icon iconName="FiGithub" client:load />View on Github</Button
               >
             </a>
@@ -155,14 +180,13 @@ const { object: project } = await cosmic.objects
           project.metadata.highlights.map(
             (
               highlight: {
-                url: string;
-                metadata: { data: string };
-                type: string;
+                url: string
+                metadata: { data: string }
+                type: string
               },
               i: number
             ) => {
-              console.log(highlight);
-              const isImage = highlight.type.startsWith("image/");
+              const isImage = highlight.type.startsWith('image/')
               return (
                 <div class="text-muted-foreground space-y-4">
                   {isImage ? (
@@ -188,16 +212,53 @@ const { object: project } = await cosmic.objects
                       {highlight.metadata.data}
                     </p>
                     <span class="uppercase bg-border px-2 py-0.5 rounded-full ">
-                      {isImage ? "Image" : "Video"}
+                      {isImage ? 'Image' : 'Video'}
                     </span>
                   </div>
                 </div>
-              );
+              )
             }
           )
         }
       </div>
     </section>
+    {
+      isClientProject && (
+        <section class="flex justify-between py-16 items-center gap-16">
+          <div class="flex-[2_1_0%]">
+            <GradientHeading className="text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight">
+              Give your brand a voice.
+            </GradientHeading>
+            <p class="text-xl font-medium text-muted-foreground">
+              Connect with us today
+            </p>
+
+            <div class="space-x-4 mt-12">
+              <a href="mailto:peerbuild@gmail.com">
+                <Button>
+                  <Icon client:load iconName="FiMail" />
+                  peerbuild@gmail.com
+                </Button>
+              </a>
+              <a href="https://peerbuild.tech">
+                <Button variant={'secondary'}>
+                  <Icon client:load iconName="FiLink" />
+                  peerbuild.tech
+                </Button>
+              </a>
+            </div>
+          </div>
+          <div class="flex-1">
+            <img
+              src="/peerbuild.svg"
+              alt="Peerbuild Studios"
+              width="392"
+              height="70"
+            />
+          </div>
+        </section>
+      )
+    }
     <hr class="border border-border" />
     <NextProject next={project.metadata.next_project} />
   </main>
