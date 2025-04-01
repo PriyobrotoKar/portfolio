@@ -1,23 +1,23 @@
 ---
-import Card from "@/components/Card.astro";
+import Card from './Card'
 
 interface Props {
   next: {
-    title: string;
-    slug: string;
+    title: string
+    slug: string
     metadata: {
-      overview: string;
+      overview: string
       thumbnail: {
-        url: string;
-      };
-      primary_color: string;
-    };
-  };
+        url: string
+      }
+      primary_color: string
+    }
+  }
 }
 
-const { next } = Astro.props;
+const { next } = Astro.props
 if (!next) {
-  return null;
+  return null
 }
 ---
 

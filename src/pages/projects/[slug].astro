@@ -189,23 +189,25 @@ const isClientProject = project.metadata.type === 'Client'
               const isImage = highlight.type.startsWith('image/')
               return (
                 <div class="text-muted-foreground space-y-4">
-                  {isImage ? (
-                    <img
-                      src={highlight.url}
-                      alt={highlight.metadata.data}
-                      width="600"
-                      height="600"
-                      class="w-full rounded-xl border border-border"
-                    />
-                  ) : (
-                    <video
-                      src={highlight.url}
-                      autoplay
-                      loop
-                      muted
-                      class="w-full rounded-xl border border-border"
-                    />
-                  )}
+                  <div class="w-full overflow-hidden border border-border rounded-xl">
+                    {isImage ? (
+                      <img
+                        src={highlight.url}
+                        alt={highlight.metadata.data}
+                        width="600"
+                        height="600"
+                        class="w-full "
+                      />
+                    ) : (
+                      <video
+                        src={highlight.url}
+                        autoplay
+                        loop
+                        muted
+                        class="w-full scale-[1.01] "
+                      />
+                    )}
+                  </div>
                   <div class="flex items-end justify-end text-xs gap-2">
                     <p>
                       <span class="font-bold">{((i + 1) / 10).toFixed(1)}</span>

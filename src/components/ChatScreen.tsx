@@ -65,8 +65,6 @@ export default function ChatScreen({
     const screenHeight = document.documentElement?.clientHeight - 200
 
     if (scrollHeight > screenHeight) {
-      console.log('scrolling')
-
       chatScreenRef.current.scrollTo({
         top: chatScreenRef.current.scrollHeight,
         behavior: 'smooth'

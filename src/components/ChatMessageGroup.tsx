@@ -44,8 +44,6 @@ export default function ChatMessageGroup({
     }
   }
 
-  console.log(session?.user?.image)
-
   return (
     <motion.div
       layout="preserve-aspect"
