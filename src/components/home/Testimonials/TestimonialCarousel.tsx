@@ -1,20 +1,22 @@
-import React from "react";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
-import { cn } from "@/lib/utils";
-import Autoplay from "embla-carousel-autoplay";
-import AnimatedBorderCard from "../AnimatedBorderCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from '@/components/ui/carousel'
+import { cn } from '@/lib/utils'
+import Autoplay from 'embla-carousel-autoplay'
 
 type TestimonialCarouselProps = {
   testimonials: {
-    name: string;
-    image: string;
-    designation: string;
-    testimonial: string;
-  }[];
-};
+    name: string
+    image: string
+    designation: string
+    testimonial: string
+  }[]
+}
 
 const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
-  const _testimonials = [...testimonials, ...testimonials];
+  const _testimonials = [...testimonials, ...testimonials]
   return (
     <div>
       <Carousel
@@ -23,8 +25,8 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
           Autoplay({
             delay: 5000,
             stopOnInteraction: false,
-            stopOnMouseEnter: true,
-          }),
+            stopOnMouseEnter: true
+          })
         ]}
         itemsCount={_testimonials.length}
         className="w-screen max-w-screen-2xl overflow-x-hidden overflow-y-visible left-1/2 -translate-x-1/2 gradient-mask-r-[transparent,white_30%]"
@@ -33,7 +35,7 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
           {_testimonials.map((testimonial, i) => {
             // if (i > 0) return;
             return (
-              <CarouselItem index={i} className={cn("max-w-xs  ml-6")}>
+              <CarouselItem index={i} className={cn('max-w-xs  ml-6')}>
                 <div className="size-20 rounded-full overflow-hidden">
                   <img
                     className="w-full h-full object-cover "
@@ -53,12 +55,12 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
                   {testimonial.testimonial}
                 </p>
               </CarouselItem>
-            );
+            )
           })}
         </CarouselContent>
       </Carousel>
     </div>
-  );
-};
+  )
+}
 
-export default TestimonialCarousel;
+export default TestimonialCarousel

@@ -1,17 +1,17 @@
 ---
-import "@fontsource-variable/dm-sans";
-import "@/styles/globals.css";
-import NoiseOverlay from "@/components/NoiseOverlay.astro";
-import Spotlight from "@/components/Spotlight.astro";
-import Header from "@/components/Header";
-import { Toaster } from "@/components/ui/sonner";
-import Footer from "@/components/Footer/Footer.astro";
+import '@fontsource-variable/dm-sans'
+import '@/styles/globals.css'
+import NoiseOverlay from '@/components/NoiseOverlay.astro'
+import Spotlight from '@/components/Spotlight.astro'
+import Header from '@/components/Header'
+import { Toaster } from '@/components/ui/sonner'
+import Footer from '@/components/home/Footer/Footer.astro'
 
 interface Props {
-  showFooter?: boolean;
+  showFooter?: boolean
 }
 
-const {showFooter = true} = Astro.props;
+const { showFooter = true } = Astro.props
 ---
 
 <html lang="en">

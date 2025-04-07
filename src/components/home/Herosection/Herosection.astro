@@ -1,20 +1,20 @@
 ---
-import Socials from "@/components/Herosection/Socials.astro";
-import Skills from "@/components/Herosection/Skills.astro";
-import { cosmic } from "@/lib/cosmic";
-import Animate from "../Animate";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import AvailableStatus from "../AvailableStatus.astro";
+import Socials from './Socials.astro'
+import Skills from './Skills.astro'
+import { cosmic } from '@/lib/cosmic'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
+import AvailableStatus from '@/components/AvailableStatus.astro'
+
 const {
-  object: { metadata: details },
+  object: { metadata: details }
 } = await cosmic.objects
   .findOne({
-    type: "personal-details",
-    slug: "details",
+    type: 'personal-details',
+    slug: 'details'
   })
-  .props("slug,title,metadata")
-  .depth(1);
+  .props('slug,title,metadata')
+  .depth(1)
 ---
 
 <section
@@ -36,9 +36,9 @@ const {
       client:load
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="saturate-0 brightness-[0.6] rounded-full mx-auto"
-      src={details.profile_picture.url}
+      transition={{ duration: 0.8, ease: 'easeInOut' }}
+      className="saturate-0 brightness-[1] rounded-full mx-auto"
+      src={'/pfp.png'}
       alt=""
     />
     <Skills />
@@ -47,8 +47,8 @@ const {
   <div class="flex flex-col items-center gap-4">
     <motion.div
       client:load
-      initial={{ filter: "blur(10px)", y: 8, opacity: 0 }}
-      animate={{ opacity: 1, filter: "blur(0)", y: 0 }}
+      initial={{ filter: 'blur(10px)', y: 8, opacity: 0 }}
+      animate={{ opacity: 1, filter: 'blur(0)', y: 0 }}
       transition={{ duration: 1 }}
     >
       <h1
@@ -64,13 +64,13 @@ const {
           return (
             <motion.div
               client:load
-              initial={{ opacity: 0, y: 8, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 8, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.8, delay: i * 0.3 + 0.5 }}
-              className={cn("inline-block", i !== 0 && "ml-1")}
+              className={cn('inline-block', i !== 0 && 'ml-1')}
             >
               <span>
-                {role}{" "}
+                {role}{' '}
                 <motion.div
                   client:load
                   initial={{ opacity: 0 }}
@@ -82,7 +82,7 @@ const {
                 </motion.div>
               </span>
             </motion.div>
-          );
+          )
         })
       }
     </div>

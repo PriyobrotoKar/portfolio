@@ -1,7 +1,7 @@
 ---
-import AvailableStatus from "../AvailableStatus.astro";
-import ContactForm from "./ContactForm";
-import LocalTime from "./LocalTime";
+import AvailableStatus from '@/components/AvailableStatus.astro'
+import ContactForm from './ContactForm'
+import LocalTime from './LocalTime'
 ---
 
 <section class="pt-56 pb-64 flex relative">
@@ -28,7 +28,7 @@ import LocalTime from "./LocalTime";
       alt="India"
       class="absolute -z-10 top-0 scale-125 opacity-80"
       style={{
-        mask: "radial-gradient(51.41% 51.22% at 45% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(115, 115, 115, 0.00) 100%)",
+        mask: 'radial-gradient(51.41% 51.22% at 45% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(115, 115, 115, 0.00) 100%)'
       }}
     />
     <LocalTime client:load />

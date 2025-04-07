@@ -1,25 +1,25 @@
 ---
-import { cosmic } from "@/lib/cosmic";
-import "@fontsource/dm-serif-display/400-italic.css";
-import GradientHeading from "../GradientHeading.astro";
+import { cosmic } from '@/lib/cosmic'
+import '@fontsource/dm-serif-display/400-italic.css'
+import GradientHeading from '@/components/GradientHeading.astro'
 
 const {
-  object: { metadata: details },
+  object: { metadata: details }
 } = await cosmic.objects
   .findOne({
-    type: "personal-details",
-    slug: "details",
+    type: 'personal-details',
+    slug: 'details'
   })
-  .props("slug,title,metadata")
-  .depth(1);
+  .props('slug,title,metadata')
+  .depth(1)
 
 const styles = [
-  "rotate-[10deg] translate-y-20 scale-105",
-  "rotate-[4deg] -translate-y-20",
-  "-rotate-12 translate-y-10 scale-110",
-  "-rotate-[20deg] -translate-y-10 ",
-  "-rotate-3 -translate-y-32 col-start-3",
-];
+  'rotate-[10deg] translate-y-20 scale-105',
+  'rotate-[4deg] -translate-y-20',
+  '-rotate-12 translate-y-10 scale-110',
+  '-rotate-[20deg] -translate-y-10 ',
+  '-rotate-3 -translate-y-32 col-start-3'
+]
 ---
 
 <section class="min-h-[60svh] flex justify-start items-center relative my-64">
@@ -39,7 +39,7 @@ const styles = [
       {
         details.highlights.map(
           ({ image }: { image: { url: string } }, i: number) => {
-            return <img src={image.url} class={styles[i] + ""} width="100%" />;
+            return <img src={image.url} class={styles[i] + ''} width="100%" />
           }
         )
       }

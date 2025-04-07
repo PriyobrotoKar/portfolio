@@ -1,0 +1,66 @@
+---
+import { cosmic } from '@/lib/cosmic'
+import GradientHeading from '../GradientHeading.astro'
+import { Markdown } from 'astro-remote'
+import CustomParagraph from './CustomParagraph.astro'
+
+const {
+  object: { metadata: about }
+} = await cosmic.objects
+  .findOne({
+    type: 'about',
+    slug: 'myself'
+  })
+  .props('slug,title,metadata')
+  .depth(1)
+---
+
+<section class="py-48 space-y-28">
+  <GradientHeading className="text-8xl w-[70rem] max-w-none">
+    Building <span class="font-bold">
+      <span class="text-gray-400/40 blur-md absolute">Solutions</span> Solutions
+    </span>
+    <br /> that solve real problems.
+  </GradientHeading>
+
+  <div class="flex gap-14">
+    <div class="space-y-6">
+      <div class="w-[22rem] p-3 bg-card border rounded-xl h-[28rem]">
+        <img
+          class="w-full h-full object-cover rounded saturate-0"
+          src={about.picture.url}
+          width="352"
+          height="448"
+          alt="Picture"
+        />
+      </div>
+
+      <div class="space-y-1">
+        <h2 class="text-2xl font-medium">
+          {about.name}
+        </h2>
+        <p class="text-muted-foreground text-md">
+          {about.role} · {about.location}{
+            about.resume && (
+              <a href={about.resume} target="_blank">
+                · <span class="text-primary">Download CV</span>
+              </a>
+            )
+          }
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="space-y-9 text-muted-foreground py-6">
+        <Markdown
+          content={about.description}
+          components={{
+            strong: CustomParagraph
+          }}
+        />
+      </div>
+      <img src={about.signature.url} alt="Signature" width="80" height="48" />
+    </div>
+  </div>
+</section>

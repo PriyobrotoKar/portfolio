@@ -1,0 +1,58 @@
+---
+import GradientHeading from '@/components/GradientHeading.astro'
+import TestimonialCarousel from './TestimonialCarousel'
+
+const testimonials = [
+  {
+    name: 'Steve Rogers',
+    image: '/avatars/captain-america.webp',
+    designation: 'Captain America',
+    testimonial:
+      'Working with Priyobroto was a great experience. He is a very talented developer and a great team player. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  },
+  {
+    name: 'Tony Stark',
+    image: '/avatars/tony.webp',
+    designation: 'CEO, Stark Industries',
+    testimonial:
+      'Priyobroto is a very talented developer. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  },
+  {
+    name: 'Natasha Romanoff',
+    image: '/avatars/blackwidow.jpg',
+    designation: 'Black Widow',
+    testimonial:
+      'Priyobroto is a very talented developer. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  },
+  {
+    name: 'Bruce Banner',
+    image: '/avatars/hulk.jpg',
+    designation: 'Hulk',
+    testimonial:
+      'Priyobroto is a very talented developer. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  },
+  {
+    name: 'Thor',
+    image: '/avatars/thor.webp',
+    designation: 'God of Thunder',
+    testimonial:
+      'Priyobroto is a very talented developer. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  },
+  {
+    name: 'Clint Barton',
+    image: '/avatars/hawkeye.webp',
+    designation: 'Hawkeye',
+    testimonial:
+      'Priyobroto is a very talented developer. He is very professional and always delivers on time. I would highly recommend him for any project.'
+  }
+]
+---
+
+<section class="mt-56">
+  <GradientHeading
+    className="text-6xl mb-16 mx-0 font-medium max-w-xl leading-tight"
+  >
+    See what others are saying.
+  </GradientHeading>
+  <TestimonialCarousel testimonials={testimonials} client:load />
+</section>
