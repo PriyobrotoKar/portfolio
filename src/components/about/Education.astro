@@ -45,7 +45,7 @@ const formatDate = (date: string) => {
           course,
           institution_logo
         }: Education) => (
-          <div class="flex gap-10">
+          <div class="flex flex-col md:flex-row gap-4 md:gap-10">
             <div class="text-muted-foreground min-w-max">
               {formatDate(start_at)} - {formatDate(end_at)}
             </div>

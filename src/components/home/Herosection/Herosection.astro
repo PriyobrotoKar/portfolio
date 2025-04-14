@@ -18,7 +18,7 @@ const {
 ---
 
 <section
-  class="flex h-screen max-h-[60rem] justify-center items-center gap-10 flex-col p-10"
+  class="flex h-screen max-h-[60rem] justify-center items-center gap-10 flex-col py-10"
 >
   <div class="w-[16rem] p-2.5 relative">
     <motion.div
@@ -52,13 +52,13 @@ const {
       transition={{ duration: 1 }}
     >
       <h1
-        class="text-5xl font-bold drop-shadow-[0_0px_12.8px_rgba(255,255,255,0.20)] shadow-white"
+        class="text-4xl sm:text-5xl font-bold drop-shadow-[0_0px_12.8px_rgba(255,255,255,0.20)] shadow-white"
       >
         {details.name}
       </h1>
     </motion.div>
     <AvailableStatus />
-    <div class="text-md text-muted-foreground">
+    <div class="text-md text-center text-muted-foreground">
       {
         details.roles.map(({ role }: { role: string }, i: number) => {
           return (

@@ -27,9 +27,9 @@ const Works = ({ objects }: WorksProps) => {
   }, [activeTab])
 
   return (
-    <div>
+    <div className="mt-20">
       <TabsSwitch setActiveTab={setActiveTab} />
-      <section className="grid sm:grid-cols-2 gap-10 px-6 pb-12">
+      <section className="grid sm:grid-cols-2 gap-4 md:gap-10 pb-12">
         {works.map(({ title, slug, metadata }: any) => {
           return (
             <Card

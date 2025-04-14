@@ -20,7 +20,7 @@ const Card = ({ href, metadata, title, size = 'small' }: Props) => {
     <a href={href}>
       <article
         className={cn(
-          'bg-card/80 border-border rounded-xl border px-6 py-10 sm:p-10 h-[20rem] group md:h-[23rem] lg:h-[25rem] relative overflow-hidden',
+          'bg-card/80 border-border rounded-xl border px-6 py-8 md:p-10 h-[20rem] group md:h-[23rem] lg:h-[25rem] relative overflow-hidden',
           size === 'large' && 'sm:h-[35rem] lg:h-[45rem]'
         )}
       >

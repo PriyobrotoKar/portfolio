@@ -70,6 +70,9 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -77,4 +80,8 @@
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.text-shadow {
+  text-shadow: 0 0px 30px rgba(255, 255, 255, 0.25);
 }

@@ -1,14 +1,16 @@
-import React from "react";
-import TextLoop from "./TextLoop";
-import { roles } from "@/constants";
+import React from 'react'
+import TextLoop from './TextLoop'
+import { roles } from '@/constants'
 
 const Logo = () => {
   return (
     <div>
-      <h1>Priyobroto.</h1>
-      <TextLoop words={roles} />
+      <a href="/">
+        <h1>Priyobroto.</h1>
+        <TextLoop words={roles} />
+      </a>
     </div>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo

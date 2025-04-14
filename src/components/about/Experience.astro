@@ -47,7 +47,7 @@ const formatDate = (date: string | undefined) => {
   <div class="space-y-12">
     {
       about.experiences.map((experience: Experience) => (
-        <div class="flex gap-10">
+        <div class="flex flex-col md:flex-row gap-4 md:gap-10">
           <div class="text-muted-foreground min-w-max">
             {formatDate(experience.start_at)} - {formatDate(experience.end_at)}
           </div>

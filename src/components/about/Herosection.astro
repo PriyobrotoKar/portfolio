@@ -15,17 +15,21 @@ const {
   .depth(1)
 ---
 
-<section class="py-48 space-y-28">
-  <GradientHeading className="text-8xl w-[70rem] max-w-none">
+<section class="py-48 space-y-16 md:space-y-28">
+  <GradientHeading
+    className="text-4xl sm:text-6xl lg:text-8xl w-auto xl:w-[70rem] max-w-none"
+  >
     Building <span class="font-bold">
       <span class="text-gray-400/40 blur-md absolute">Solutions</span> Solutions
     </span>
     <br /> that solve real problems.
   </GradientHeading>
 
-  <div class="flex gap-14">
+  <div class="flex gap-14 flex-col md:flex-row">
     <div class="space-y-6">
-      <div class="w-[22rem] p-3 bg-card border rounded-xl h-[28rem]">
+      <div
+        class="max-w-[22rem] p-3 bg-card border rounded-xl aspect-[3/4] md:h-[28rem]"
+      >
         <img
           class="w-full h-full object-cover rounded saturate-0"
           src={about.picture.url}

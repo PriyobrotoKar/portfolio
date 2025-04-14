@@ -22,16 +22,16 @@ const {
 
 <section>
   <GradientHeading
-    className="text-6xl mb-16 mx-0 max-w-3xl font-medium leading-tight"
+    className="text-4xl sm:text-6xl mb-16 mx-0 max-w-3xl font-medium leading-tight"
   >
     Services that supercharge your business
   </GradientHeading>
 
-  <div class="grid grid-cols-2 gap-8">
+  <div class="grid md:grid-cols-2 gap-8">
     {
       about.services.map((service: Service) => {
         return (
-          <div class="bg-card p-9 border flex flex-col justify-between h-52 rounded-xl relative overflow-hidden">
+          <div class="bg-card p-6 md:p-9 border gap-4 md:gap-0 flex flex-col justify-between md:h-52 rounded-xl relative overflow-hidden">
             <div class="bg-foreground/20 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-10" />
             <div class="bg-foreground/10 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-48" />
             <Icon

@@ -3,6 +3,7 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel'
+import useIsMobile from '@/hooks/useIsMobile'
 import { cn } from '@/lib/utils'
 import Autoplay from 'embla-carousel-autoplay'
 
@@ -17,6 +18,8 @@ type TestimonialCarouselProps = {
 
 const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
   const _testimonials = [...testimonials, ...testimonials]
+  const isMobile = useIsMobile()
+
   return (
     <div>
       <Carousel
@@ -29,6 +32,7 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
           })
         ]}
         itemsCount={_testimonials.length}
+        offset={isMobile ? 0 : 1}
         className="w-screen max-w-screen-2xl overflow-x-hidden overflow-y-visible left-1/2 -translate-x-1/2 gradient-mask-r-[transparent,white_30%]"
       >
         <CarouselContent className="ml-0">

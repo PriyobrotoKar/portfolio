@@ -22,14 +22,14 @@ const { showFooter = true } = Astro.props
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
   </head>
-  <body
-    class="dark dark:bg-background relative pt-24 md:pt-0 overflow-x-hidden"
-  >
+  <body class="dark dark:bg-background relative overflow-x-hidden">
     <Toaster client:load richColors />
     <Spotlight />
     <NoiseOverlay />
     <Header client:idle />
-    <div class="max-w-screen-lg min-h-svh mx-auto"><slot /></div>
+
+    <div class="max-w-screen-lg min-h-svh mx-auto px-6"><slot /></div>
+
     {showFooter && <Footer />}
   </body>
 </html>

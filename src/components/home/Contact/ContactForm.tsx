@@ -40,7 +40,7 @@ const ContactForm = () => {
   return (
     <form className="space-y-6 mt-10" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-col sm:flex-row">
           <Input type="text" placeholder="Name" {...register('name')} />
           <Input type="email" placeholder="Email" {...register('email')} />
         </div>

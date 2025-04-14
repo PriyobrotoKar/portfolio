@@ -34,7 +34,7 @@ const isClientProject = project.metadata.type === 'Client'
 ---
 
 <SiteLayout>
-  <main class="py-16 sm:py-40 space-y-20 px-6">
+  <main class="py-40 sm:py-40 space-y-20">
     <div class="space-y-7 text-center">
       <GradientHeading
         className="text-6xl sm:text-8xl font-semibold text-center"
@@ -45,13 +45,13 @@ const isClientProject = project.metadata.type === 'Client'
           <a href="https://peerbuild.tech" class="inline-block">
             <h2 class="text-md text-muted-foreground leading-tight flex group items-end gap-4 justify-center">
               A project under
-              <div class="flex items-end gap-2">
+              <div class="flex items-center md:items-end gap-2">
                 <img
                   src="/peerbuild.svg"
                   alt="Peerbuild Studios"
                   width="165"
                   height="29"
-                  class="opacity-50 group-hover:opacity-100 duration-500 transition-opacity"
+                  class="opacity-50 w-20 md:w-auto group-hover:opacity-100 duration-500 transition-opacity"
                 />
                 Studios
               </div>
@@ -62,7 +62,7 @@ const isClientProject = project.metadata.type === 'Client'
     </div>
     <div
       style={`background-image: radial-gradient(circle farthest-side at 50% 0, ${project.metadata.primary_color}, #0000);`}
-      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-[10%] blur-3xl opacity-10 -z-20 absolute left-1/2 -translate-x-1/2"
+      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-[10%] blur-3xl opacity-20 -z-20 absolute left-1/2 -translate-x-1/2"
     >
     </div>
     <div class="p-6 md:p-20 relative -z-20">
@@ -93,7 +93,7 @@ const isClientProject = project.metadata.type === 'Client'
       </div>
       <div class="flex prose-ol:space-y-1 flex-col md:flex-row gap-10">
         <div class="flex-1 space-y-12">
-          <div>
+          <div class="[&>ul]:space-y-2">
             <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
             <Markdown content={project.metadata.features_new} />
           </div>
@@ -122,8 +122,13 @@ const isClientProject = project.metadata.type === 'Client'
         </div>
 
         <div class="flex-1 space-y-14">
-          <div>
-            <h2 class="text-xl font-semibold mb-4 text-foreground">
+          <div class="[&>ul]:space-y-2">
+            <h2
+              class="text-xl
+            font-semibold
+            mb-4
+            text-foreground"
+            >
               Challenges
             </h2>
             <Markdown content={project.metadata.challenges_new} />
@@ -226,23 +231,23 @@ const isClientProject = project.metadata.type === 'Client'
     </section>
     {
       isClientProject && (
-        <section class="flex justify-between py-16 items-center gap-16">
+        <section class="flex flex-col-reverse md:flex-row text-center md:text-left justify-between py-16 items-center gap-8 md:gap-16">
           <div class="flex-[2_1_0%]">
-            <GradientHeading className="text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight">
+            <GradientHeading className="text-4xl md:text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight">
               Give your brand a voice.
             </GradientHeading>
             <p class="text-xl font-medium text-muted-foreground">
               Connect with us today
             </p>
 
-            <div class="space-x-4 mt-12">
-              <a href="mailto:peerbuild@gmail.com">
+            <div class="space-y-4 md:space-x-4 mt-4">
+              <a href="mailto:peerbuild@gmail.com" class="inline-block">
                 <Button>
                   <Icon client:load iconName="FiMail" />
                   peerbuild@gmail.com
                 </Button>
               </a>
-              <a href="https://peerbuild.tech">
+              <a href="https://peerbuild.tech" class="inline-block">
                 <Button variant={'secondary'}>
                   <Icon client:load iconName="FiLink" />
                   peerbuild.tech
@@ -252,6 +257,7 @@ const isClientProject = project.metadata.type === 'Client'
           </div>
           <div class="flex-1">
             <img
+              class="w-40 md:w-full"
               src="/peerbuild.svg"
               alt="Peerbuild Studios"
               width="392"
