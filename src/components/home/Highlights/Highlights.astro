@@ -1,7 +1,9 @@
 ---
 import { cosmic } from '@/lib/cosmic'
+import { motion } from 'framer-motion'
 import '@fontsource/dm-serif-display/400-italic.css'
-import GradientHeading from '@/components/GradientHeading.astro'
+import GradientHeading from '@/components/GradientHeading.tsx'
+import Animate from '@/components/Animate'
 
 const {
   object: { metadata: details }
@@ -18,7 +20,7 @@ const styles = [
   'rotate-[4deg] -translate-y-20',
   '-rotate-12 translate-y-10 scale-150 md:scale-110',
   '-rotate-[20deg] -translate-y-10 scale-150 md:scale-100',
-  '-rotate-3 -translate-y-32 col-start-3 scale-150 md:scale-100'
+  '-rotate-3 -translate-y-32 scale-150 md:scale-100'
 ]
 ---
 
@@ -26,6 +28,7 @@ const styles = [
   class="min-h-[80svh] md:min-h-[60svh] flex justify-start items-center relative my-20 md:my-64"
 >
   <GradientHeading
+    client:load
     className="text-5xl  md:text-8xl xl:min-w-[64rem] max-w-none"
   >
     I develop
@@ -46,7 +49,29 @@ const styles = [
       {
         details.highlights.map(
           ({ image }: { image: { url: string } }, i: number) => {
-            return <img src={image.url} class={styles[i] + ''} width="100%" />
+            return (
+              <div
+                class={i === details.highlights.length - 1 ? 'col-start-3' : ''}
+              >
+                <motion.img
+                  initial={{
+                    opacity: 0
+                  }}
+                  whileInView={{
+                    opacity: 1
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: i * 0.2 + 0.5
+                  }}
+                  viewport={{ once: true }}
+                  className={`${styles[i]}`}
+                  client:load
+                  src={image.url}
+                  width="100%"
+                />
+              </div>
+            )
           }
         )
       }

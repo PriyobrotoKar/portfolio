@@ -1,7 +1,8 @@
 ---
 import { cosmic } from '@/lib/cosmic'
-import GradientHeading from '../GradientHeading.astro'
+import GradientHeading from '../GradientHeading.tsx'
 import Icon from '../Icon'
+import Animate from '../Animate'
 
 interface Service {
   title: string
@@ -22,6 +23,7 @@ const {
 
 <section>
   <GradientHeading
+    client:load
     className="text-4xl sm:text-6xl mb-16 mx-0 max-w-3xl font-medium leading-tight"
   >
     Services that supercharge your business
@@ -29,23 +31,30 @@ const {
 
   <div class="grid md:grid-cols-2 gap-8">
     {
-      about.services.map((service: Service) => {
+      about.services.map((service: Service, i: number) => {
         return (
-          <div class="bg-card p-6 md:p-9 border gap-4 md:gap-0 flex flex-col justify-between md:h-52 rounded-xl relative overflow-hidden">
-            <div class="bg-foreground/20 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-10" />
-            <div class="bg-foreground/10 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-48" />
-            <Icon
-              className="size-9 bg-transparent drop-shadow-[0_0_27px_var(--tw-shadow-color)] shadow-foreground"
-              client:load
-              iconName={service.icon}
-            />
-            <div>
-              <h2 class="text-xl font-medium">{service.title}</h2>
-              <p class="text-md text-muted-foreground mt-2">
-                {service.description}
-              </p>
+          <Animate
+            client:load
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.2 + 0.5 }}
+          >
+            <div class="bg-card p-6 md:p-9 border gap-4 md:gap-0 flex flex-col justify-between md:h-52 rounded-xl relative overflow-hidden">
+              <div class="bg-foreground/20 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-10" />
+              <div class="bg-foreground/10 h-[40rem] w-8 rounded-full blur-lg absolute rotate-[60deg] -top-full right-48" />
+              <Icon
+                className="size-9 bg-transparent drop-shadow-[0_0_27px_var(--tw-shadow-color)] shadow-foreground"
+                client:load
+                iconName={service.icon}
+              />
+              <div>
+                <h2 class="text-xl font-medium">{service.title}</h2>
+                <p class="text-md text-muted-foreground mt-2">
+                  {service.description}
+                </p>
+              </div>
             </div>
-          </div>
+          </Animate>
         )
       })
     }

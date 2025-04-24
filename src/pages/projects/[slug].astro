@@ -1,5 +1,5 @@
 ---
-import GradientHeading from '@/components/GradientHeading.astro'
+import GradientHeading from '@/components/GradientHeading.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import SiteLayout from '@/layouts/SiteLayout.astro'
 import { cosmic } from '@/lib/cosmic'
@@ -37,6 +37,7 @@ const isClientProject = project.metadata.type === 'Client'
   <main class="py-40 sm:py-40 space-y-20">
     <div class="space-y-7 text-center">
       <GradientHeading
+        client:load
         className="text-6xl sm:text-8xl font-semibold text-center"
         >{project.title}</GradientHeading
       >
@@ -233,7 +234,10 @@ const isClientProject = project.metadata.type === 'Client'
       isClientProject && (
         <section class="flex flex-col-reverse md:flex-row text-center md:text-left justify-between py-16 items-center gap-8 md:gap-16">
           <div class="flex-[2_1_0%]">
-            <GradientHeading className="text-4xl md:text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight">
+            <GradientHeading
+              client:load
+              className="text-4xl md:text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight"
+            >
               Give your brand a voice.
             </GradientHeading>
             <p class="text-xl font-medium text-muted-foreground">

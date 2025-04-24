@@ -1,5 +1,6 @@
 ---
 import { cosmic } from '@/lib/cosmic'
+import Animate from '../Animate'
 
 interface Education {
   start_at: string
@@ -30,9 +31,24 @@ const formatDate = (date: string) => {
   <h2
     class="caret-accent-foreground flex items-center uppercase text-md text-muted-foreground font-semibold tracking-wide gap-3"
   >
-    <span
-      class="size-2 inline-block shadow-[0_0_14.8px_0_var(--tw-shadow-color)] shadow-foreground rounded-full bg-foreground"
-    ></span> Education
+    <Animate
+      client:load
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      <span
+        class="size-2 inline-block shadow-[0_0_14.8px_0_var(--tw-shadow-color)] shadow-foreground rounded-full bg-foreground"
+      ></span>
+    </Animate>
+    <Animate
+      client:load
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      Education
+    </Animate>
   </h2>
 
   <div class="space-y-12">
@@ -46,20 +62,36 @@ const formatDate = (date: string) => {
           institution_logo
         }: Education) => (
           <div class="flex flex-col md:flex-row gap-4 md:gap-10">
-            <div class="text-muted-foreground min-w-max">
-              {formatDate(start_at)} - {formatDate(end_at)}
-            </div>
-            <div class="flex flex-1 justify-between items-center">
-              <div>
-                <h3 class="font-medium">{institution}</h3>
-                <p class="text-md">{course}</p>
+            <Animate
+              client:load
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <div class="text-muted-foreground min-w-max">
+                {formatDate(start_at)} - {formatDate(end_at)}
               </div>
-              <img
-                src={institution_logo.url}
-                alt={institution}
-                width="45"
-                height="45"
-              />
+            </Animate>
+            <div class="flex-1 justify-between items-center">
+              <Animate
+                client:load
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h3 class="font-medium">{institution}</h3>
+                    <p class="text-md">{course}</p>
+                  </div>
+                  <img
+                    src={institution_logo.url}
+                    alt={institution}
+                    width="45"
+                    height="45"
+                  />
+                </div>
+              </Animate>
             </div>
           </div>
         )

@@ -1,8 +1,9 @@
 ---
 import { cosmic } from '@/lib/cosmic'
-import GradientHeading from '../GradientHeading.astro'
+import GradientHeading from '../GradientHeading.tsx'
 import { Markdown } from 'astro-remote'
 import CustomParagraph from './CustomParagraph.astro'
+import Animate from '../Animate'
 
 const {
   object: { metadata: about }
@@ -17,6 +18,7 @@ const {
 
 <section class="py-48 space-y-16 md:space-y-28">
   <GradientHeading
+    client:load
     className="text-4xl sm:text-6xl lg:text-8xl w-auto xl:w-[70rem] max-w-none"
   >
     Building <span class="font-bold">
@@ -27,44 +29,120 @@ const {
 
   <div class="flex gap-14 flex-col md:flex-row">
     <div class="space-y-6">
-      <div
-        class="max-w-[22rem] p-3 bg-card border rounded-xl aspect-[3/4] md:h-[28rem]"
+      <Animate
+        client:load
+        initial={{
+          opacity: 0,
+          y: 20
+        }}
+        animate={{
+          opacity: 1,
+          y: 0
+        }}
+        transition={{
+          duration: 0.5,
+          delay: 0.3
+        }}
       >
-        <img
-          class="w-full h-full object-cover rounded saturate-0"
-          src={about.picture.url}
-          width="352"
-          height="448"
-          alt="Picture"
-        />
-      </div>
+        <div
+          class="max-w-[22rem] p-3 bg-card border rounded-xl aspect-[3/4] md:h-[28rem]"
+        >
+          <img
+            class="w-full h-full object-cover rounded saturate-0"
+            src={about.picture.url}
+            width="352"
+            height="448"
+            alt="Picture"
+          />
+        </div>
+      </Animate>
 
       <div class="space-y-1">
-        <h2 class="text-2xl font-medium">
-          {about.name}
-        </h2>
-        <p class="text-muted-foreground text-md">
-          {about.role} · {about.location}{
-            about.resume && (
-              <a href={about.resume} target="_blank">
-                · <span class="text-primary">Download CV</span>
-              </a>
-            )
-          }
-        </p>
+        <Animate
+          client:load
+          initial={{
+            opacity: 0,
+            y: 20
+          }}
+          animate={{
+            opacity: 1,
+            y: 0
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.5
+          }}
+        >
+          <h2 class="text-2xl font-medium">
+            {about.name}
+          </h2>
+        </Animate>
+        <Animate
+          client:load
+          initial={{
+            opacity: 0,
+            y: 20
+          }}
+          animate={{
+            opacity: 1,
+            y: 0
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.6
+          }}
+        >
+          <p class="text-muted-foreground text-md">
+            {about.role} · {about.location}{
+              about.resume && (
+                <a href={about.resume} target="_blank">
+                  · <span class="text-primary">Download CV</span>
+                </a>
+              )
+            }
+          </p>
+        </Animate>
       </div>
     </div>
 
     <div>
-      <div class="space-y-9 text-muted-foreground py-6">
-        <Markdown
-          content={about.description}
-          components={{
-            strong: CustomParagraph
-          }}
-        />
-      </div>
-      <img src={about.signature.url} alt="Signature" width="80" height="48" />
+      <Animate
+        client:load
+        initial={{
+          opacity: 0
+        }}
+        animate={{
+          opacity: 1
+        }}
+        transition={{
+          duration: 1,
+          delay: 0.8
+        }}
+      >
+        <div class="space-y-9 text-muted-foreground py-6">
+          <Markdown
+            content={about.description}
+            components={{
+              strong: CustomParagraph
+            }}
+          />
+        </div>
+      </Animate>
+      <Animate
+        client:load
+        initial={{
+          opacity: 0
+        }}
+        animate={{
+          opacity: 1
+        }}
+        transition={{
+          duration: 0.5,
+          delay: 1.2
+        }}
+      >
+        <img src={about.signature.url} alt="Signature" width="80" height="48" />
+      </Animate>
     </div>
   </div>
 </section>

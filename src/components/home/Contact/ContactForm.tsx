@@ -6,6 +6,7 @@ import { z } from 'astro/zod'
 import { contactSchema, type ApiResponse } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
+import Animate from '@/components/Animate'
 
 const ContactForm = () => {
   const {
@@ -38,18 +39,24 @@ const ContactForm = () => {
   }
 
   return (
-    <form className="space-y-6 mt-10" onSubmit={handleSubmit(onSubmit)}>
-      <div className="space-y-4">
-        <div className="flex gap-4 flex-col sm:flex-row">
-          <Input type="text" placeholder="Name" {...register('name')} />
-          <Input type="email" placeholder="Email" {...register('email')} />
+    <Animate
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.8 }}
+    >
+      <form className="space-y-6 mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="space-y-4">
+          <div className="flex gap-4 flex-col sm:flex-row">
+            <Input type="text" placeholder="Name" {...register('name')} />
+            <Input type="email" placeholder="Email" {...register('email')} />
+          </div>
+          <Textarea placeholder="Message..." {...register('message')} />
         </div>
-        <Textarea placeholder="Message..." {...register('message')} />
-      </div>
-      <Button disabled={isSubmitting} className="w-full">
-        Submit
-      </Button>
-    </form>
+        <Button disabled={isSubmitting} className="w-full">
+          Submit
+        </Button>
+      </form>
+    </Animate>
   )
 }
 
