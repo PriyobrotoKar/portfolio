@@ -29,23 +29,6 @@ const columns = [
   }
 ]
 
-const testimonials = [
-  {
-    name: 'John Doe',
-    email: 'johndoe@gmail.com',
-    designation: 'CEO',
-    message:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar, nunc nec ultricies.'
-  },
-  {
-    name: 'Jane Doe',
-    email: 'janedeo@gmail.com',
-    designation: 'CTO',
-    message:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar, nunc nec ultricies.'
-  }
-]
-
 export default function TestimonialTable({
   testimonials: initialTestimonials
 }: {

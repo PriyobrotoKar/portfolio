@@ -1,5 +1,4 @@
 import { RiArrowUpLine, RiEmojiStickerLine } from 'react-icons/ri'
-import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { useAtom } from 'jotai'
 import { chatMessagesAtom, currentQuestionAtom } from '@/lib/atoms'
@@ -8,7 +7,6 @@ import type { testimonial } from '@prisma/client'
 import type { Message } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { Textarea } from './ui/textarea'
-import { messages as MSGS } from '@/constants'
 import type { Session } from '@auth/core/types'
 
 const MAX_LIMIT = 80

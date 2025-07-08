@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, useInView, type MotionProps } from 'framer-motion'
+import { motion, type MotionProps } from 'framer-motion'
 
 interface AnimateProps extends MotionProps {
   children?: React.ReactNode

@@ -1,4 +1,3 @@
-import React from 'react'
 import TextLoop from './TextLoop'
 import { roles } from '@/constants'
 

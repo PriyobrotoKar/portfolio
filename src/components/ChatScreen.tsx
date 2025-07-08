@@ -1,4 +1,3 @@
-import { type Message } from '@/lib/types'
 import ChatMessageGroup from './ChatMessageGroup'
 import type { Session } from '@auth/core/types'
 import { useCallback, useEffect, useRef, useState } from 'react'

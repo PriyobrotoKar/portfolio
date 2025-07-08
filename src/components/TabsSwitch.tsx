@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const TabsSwitch = ({
   setActiveTab

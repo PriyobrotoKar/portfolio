@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro'
 
 export const prerender = false
 
-export const POST: APIRoute = async ({ params, request }) => {
+export const POST: APIRoute = async ({ params }) => {
   const id = params.id
   try {
     if (!id) {

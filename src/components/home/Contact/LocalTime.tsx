@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const getCurrentTime = () => {
-  const date = new Date().toLocaleTimeString("en-IN", {
-    hourCycle: "h12",
-    timeZone: "Asia/Kolkata",
-  });
-  return date.toUpperCase();
-};
+  const date = new Date().toLocaleTimeString('en-IN', {
+    hourCycle: 'h12',
+    timeZone: 'Asia/Kolkata'
+  })
+  return date.toUpperCase()
+}
 
 const LocalTime = () => {
-  const [time, setTime] = useState(getCurrentTime());
+  const [time, setTime] = useState(getCurrentTime())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(getCurrentTime());
-    }, 1000);
+      setTime(getCurrentTime())
+    }, 1000)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval)
+    }
+  }, [])
 
   return (
     <div className="flex min-w-fit gap-8 text-nowrap justify-between w-2/3 bg-card py-3 px-5 rounded-lg border border-border">
@@ -30,7 +30,7 @@ const LocalTime = () => {
 
       <div className="align-middle">{time}</div>
     </div>
-  );
-};
+  )
+}
 
-export default LocalTime;
+export default LocalTime

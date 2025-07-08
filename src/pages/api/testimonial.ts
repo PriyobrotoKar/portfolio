@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { createTestimonialSchema, submitTestimonialSchema } from '@/lib/types'
+import { createTestimonialSchema } from '@/lib/types'
 import type { APIRoute } from 'astro'
 export const prerender = false
 
