@@ -1,4 +1,5 @@
 ---
+import Animate from './Animate'
 import Card from './Card'
 
 interface Props {
@@ -22,14 +23,28 @@ if (!next) {
 ---
 
 <section>
-  <h2 class="mb-10 text-4xl font-semibold text-muted-foreground">
-    Next Project
-  </h2>
-  <Card
+  <Animate
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
     client:load
-    href={`/projects/${next.slug}`}
-    title={next.title}
-    metadata={next.metadata}
-    size="large"
-  />
+  >
+    <h2 class="mb-10 text-4xl font-semibold text-muted-foreground">
+      Next Project
+    </h2>
+  </Animate>
+  <Animate
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.5 }}
+    client:load
+  >
+    <Card
+      client:load
+      href={`/projects/${next.slug}`}
+      title={next.title}
+      metadata={next.metadata}
+      size="large"
+    />
+  </Animate>
 </section>

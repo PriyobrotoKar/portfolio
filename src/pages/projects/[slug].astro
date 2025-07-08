@@ -8,7 +8,7 @@ import Icon from '@/components/Icon'
 import NextProject from '@/components/NextProject.astro'
 import TechStack from '@/components/TechStack.astro'
 import { Markdown } from 'astro-remote'
-import { Mail } from 'lucide-react'
+import Animate from '@/components/Animate'
 
 export async function getStaticPaths() {
   const { objects } = await cosmic.objects
@@ -43,20 +43,27 @@ const isClientProject = project.metadata.type === 'Client'
       >
       {
         isClientProject && (
-          <a href="https://peerbuild.tech" class="inline-block">
-            <h2 class="text-md text-muted-foreground leading-tight flex group items-end gap-4 justify-center">
-              A project under
-              <div class="flex items-center md:items-end gap-2">
-                <img
-                  src="/peerbuild.svg"
-                  alt="Peerbuild Studios"
-                  width="165"
-                  height="29"
-                  class="opacity-50 w-20 md:w-auto group-hover:opacity-100 duration-500 transition-opacity"
-                />
-                Studios
-              </div>
-            </h2>
+          <a href="https://peerbuildstudios.com" class="inline-block">
+            <Animate
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              client:load
+            >
+              <h2 class="text-md text-muted-foreground leading-tight flex group items-end gap-4 justify-center">
+                A project under
+                <div class="flex items-center md:items-end gap-2">
+                  <img
+                    src="/peerbuild.svg"
+                    alt="Peerbuild Studios"
+                    width="165"
+                    height="29"
+                    class="opacity-50 w-20 md:w-auto group-hover:opacity-100 duration-500 transition-opacity"
+                  />
+                  Studios
+                </div>
+              </h2>
+            </Animate>
           </a>
         )
       }
@@ -67,20 +74,34 @@ const isClientProject = project.metadata.type === 'Client'
     >
     </div>
     <div class="p-6 md:p-20 relative -z-20">
-      <img
-        src="/project_bg.svg"
-        alt="laptop frame"
-        width="1300"
-        height="400"
-        class="absolute top-0 left-1/2 -translate-x-1/2 z-0"
-      />
-      <img
-        src={project.metadata.thumbnail.url}
-        alt={project.title}
-        width="1200"
-        height="800"
-        class="shadow-2xl"
-      />
+      <Animate
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        client:load
+      >
+        <img
+          src="/project_bg.svg"
+          alt="laptop frame"
+          width="1300"
+          height="400"
+          class="absolute top-0 left-1/2 -translate-x-1/2 z-0"
+        />
+      </Animate>
+      <Animate
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        client:load
+      >
+        <img
+          src={project.metadata.thumbnail.url}
+          alt={project.title}
+          width="1200"
+          height="800"
+          class="shadow-2xl"
+        />
+      </Animate>
       <div
         class="absolute bottom-20 h-full w-screen bg-gradient-to-b from-transparent to-background left-1/2 -translate-x-1/2"
       >
@@ -240,33 +261,61 @@ const isClientProject = project.metadata.type === 'Client'
             >
               Give your brand a voice.
             </GradientHeading>
-            <p class="text-xl font-medium text-muted-foreground">
-              Connect with us today
-            </p>
+            <Animate
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              client:load
+            >
+              <p class="text-xl font-medium text-muted-foreground">
+                Connect with us today
+              </p>
+            </Animate>
 
             <div class="space-y-4 md:space-x-4 mt-4">
               <a href="mailto:peerbuild@gmail.com" class="inline-block">
-                <Button>
-                  <Icon client:load iconName="FiMail" />
-                  peerbuild@gmail.com
-                </Button>
+                <Animate
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  client:load
+                >
+                  <Button>
+                    <Icon client:load iconName="FiMail" />
+                    peerbuild@gmail.com
+                  </Button>
+                </Animate>
               </a>
-              <a href="https://peerbuild.tech" class="inline-block">
-                <Button variant={'secondary'}>
-                  <Icon client:load iconName="FiLink" />
-                  peerbuild.tech
-                </Button>
+              <a href="https://peerbuildstudios.com" class="inline-block">
+                <Animate
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                  client:load
+                >
+                  <Button variant={'secondary'}>
+                    <Icon client:load iconName="FiLink" />
+                    peerbuildstudios.com
+                  </Button>
+                </Animate>
               </a>
             </div>
           </div>
           <div class="flex-1">
-            <img
-              class="w-40 md:w-full"
-              src="/peerbuild.svg"
-              alt="Peerbuild Studios"
-              width="392"
-              height="70"
-            />
+            <Animate
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              whileInView={{ opacity: 1, filter: 'blur(0)' }}
+              transition={{ duration: 0.8, delay: 1 }}
+              client:load
+            >
+              <img
+                class="w-40 md:w-full"
+                src="/peerbuild.svg"
+                alt="Peerbuild Studios"
+                width="392"
+                height="70"
+              />
+            </Animate>
           </div>
         </section>
       )
