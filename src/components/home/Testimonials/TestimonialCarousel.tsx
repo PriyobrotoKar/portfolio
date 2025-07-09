@@ -45,7 +45,7 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
             return (
               <CarouselItem index={i} className={cn('max-w-xs  ml-6')}>
                 <a
-                  className="block space-y-2"
+                  className="block space-y-3"
                   href={testimonial.metadata.social_link}
                 >
                   <div className="size-20 rounded-full overflow-hidden">
@@ -57,7 +57,7 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
                       height="80"
                     />
                   </div>
-                  <div>
+                  <div className="space-y-1">
                     <h3 className="font-medium text-2xl">
                       {testimonial.metadata.name}
                     </h3>
