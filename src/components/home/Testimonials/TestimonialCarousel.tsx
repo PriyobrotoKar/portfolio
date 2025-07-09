@@ -9,10 +9,15 @@ import Autoplay from 'embla-carousel-autoplay'
 
 type TestimonialCarouselProps = {
   testimonials: {
-    name: string
-    image: string
-    designation: string
-    testimonial: string
+    metadata: {
+      name: string
+      profile_picture: {
+        url: string
+      }
+      designation: string
+      testimonial: string
+      social_link: string
+    }
   }[]
 }
 
@@ -37,27 +42,33 @@ const TestimonialCarousel = ({ testimonials }: TestimonialCarouselProps) => {
       >
         <CarouselContent className="ml-0">
           {_testimonials.map((testimonial, i) => {
-            // if (i > 0) return;
             return (
               <CarouselItem index={i} className={cn('max-w-xs  ml-6')}>
-                <div className="size-20 rounded-full overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover "
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width="80"
-                    height="80"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <h3 className="font-medium text-2xl">{testimonial.name}</h3>
-                  <p className="text-muted-foreground text-md">
-                    {testimonial.designation}
+                <a
+                  className="block space-y-2"
+                  href={testimonial.metadata.social_link}
+                >
+                  <div className="size-20 rounded-full overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover "
+                      src={testimonial.metadata.profile_picture.url}
+                      alt={testimonial.metadata.name}
+                      width="80"
+                      height="80"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-2xl">
+                      {testimonial.metadata.name}
+                    </h3>
+                    <p className="text-muted-foreground text-md">
+                      {testimonial.metadata.designation}
+                    </p>
+                  </div>
+                  <p className="text-md font-light leading-tight">
+                    {testimonial.metadata.testimonial}
                   </p>
-                </div>
-                <p className="text-md font-light leading-tight">
-                  {testimonial.testimonial}
-                </p>
+                </a>
               </CarouselItem>
             )
           })}
