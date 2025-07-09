@@ -7,7 +7,7 @@
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
-    --card: 0 0% 100%;
+    --card: 0 0% 9%;
     --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
@@ -28,7 +28,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
+    --border: 0 0% 70%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
 
@@ -36,10 +36,10 @@
   }
 
   .dark {
-    --background: 216, 13%, 5%;
+    --background: 200 18% 3%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 3.9%;
+    --card: 0 0% 9%;
     --card-foreground: 0 0% 98%;
 
     --popover: 240 10% 3.9%;
@@ -70,7 +70,18 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.text-shadow {
+  text-shadow: 0 0px 30px rgba(255, 255, 255, 0.25);
 }

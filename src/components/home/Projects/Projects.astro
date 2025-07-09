@@ -1,0 +1,25 @@
+---
+import { cosmic } from '@/lib/cosmic'
+import Card from '@/components/Card'
+
+const { objects } = await cosmic.objects
+  .find({ type: 'projects' })
+  .props('slug,title,metadata')
+  .depth(1)
+  .limit(6)
+---
+
+<section class="grid sm:grid-cols-2 gap-10">
+  {
+    objects.map(({ title, slug, metadata }: any) => {
+      return (
+        <Card
+          client:load
+          href={`/projects/${slug}`}
+          title={title}
+          metadata={metadata}
+        />
+      )
+    })
+  }
+</section>

@@ -1,0 +1,26 @@
+---
+import { motion } from "framer-motion";
+---
+
+<motion.div
+  client:load
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1, delay: 0.5 }}
+  className="overflow-hidden flex bg-green-950/50 w-fit gap-3 items-center px-3 py-1.5 rounded-md"
+>
+  <div class="relative flex justify-center items-center">
+    <span class="bg-green-400 size-2 rounded-full block"></span><span
+      class="bg-green-400 size-2.5 rounded-full block absolute animate-ping"
+    ></span>
+  </div>
+  <motion.span
+    client:load
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 1 }}
+    className="text-sm"
+  >
+    Available for work
+  </motion.span>
+</motion.div>

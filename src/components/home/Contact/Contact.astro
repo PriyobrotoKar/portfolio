@@ -1,0 +1,47 @@
+---
+import Animate from '@/components/Animate.tsx'
+import AvailableStatus from '@/components/AvailableStatus.astro'
+import ContactForm from './ContactForm'
+import LocalTime from './LocalTime'
+import GradientHeading from '@/components/GradientHeading.tsx'
+---
+
+<section id="contact" class="pt-56 pb-64 flex relative">
+  <div class="max-w-2xl space-y-12">
+    <div class="space-y-3">
+      <AvailableStatus />
+      <GradientHeading
+        client:load
+        text="Let's work together."
+        className="text-4xl sm:text-6xl mx-0 sm:leading-normal"
+      />
+      <Animate
+        client:load
+        initial={{ filter: 'blur(3px)', y: 4, opacity: 0 }}
+        animate={{ opacity: 1, filter: 'blur(0)', y: 0 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.5
+        }}
+        className="text-muted-foreground max-w-md"
+      >
+        Always excited to team up with amazing individuals for interesting
+        projects. Let's bring our ideas to life!
+      </Animate>
+    </div>
+    <ContactForm client:load />
+  </div>
+  <div
+    class="hidden lg:flex justify-center flex-grow min-w-64 font-semibold relative h-fit"
+  >
+    <img
+      src="/india.png"
+      alt="India"
+      class="absolute -z-10 top-0 scale-150 opacity-80"
+      style={{
+        mask: 'radial-gradient(51.41% 51.22% at 45% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(115, 115, 115, 0.00) 100%)'
+      }}
+    />
+    <LocalTime client:load />
+  </div>
+</section>

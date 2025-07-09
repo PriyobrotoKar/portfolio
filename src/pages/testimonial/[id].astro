@@ -1,0 +1,47 @@
+---
+export const prerender = false
+import ChatScreen from '@/components/ChatScreen'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { cosmic } from '@/lib/cosmic'
+import { prisma } from '@/lib/prisma'
+const { id } = Astro.params
+import { getSession } from 'auth-astro/server'
+import ChatInput from '@/components/ChatInput'
+
+const session = await getSession(Astro.request)
+
+const {
+  object: { metadata: details }
+} = await cosmic.objects
+  .findOne({
+    type: 'personal-details',
+    slug: 'details'
+  })
+  .props('slug,title,metadata')
+  .depth(1)
+
+const testimonail = await prisma.testimonial.findUnique({
+  where: {
+    id
+  }
+})
+
+if (!testimonail) {
+  return new Response(null, { status: 404 })
+}
+---
+
+<SiteLayout showFooter={false}>
+  <div class="h-svh w-full mx-auto max-w-screen-sm items-end flex flex-col">
+    <ChatScreen
+      client:load
+      details={{
+        ...details,
+        name: testimonail.name,
+        clientEmail: testimonail.email
+      }}
+      session={session}
+    />
+    <ChatInput session={session} testimonialId={testimonail.id} client:load />
+  </div></SiteLayout
+>

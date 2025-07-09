@@ -1,0 +1,37 @@
+---
+import GradientHeading from '@/components/GradientHeading.tsx'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import Works from '@/components/Works'
+import { cosmic } from '@/lib/cosmic'
+import { motion } from 'framer-motion'
+
+const { objects } = await cosmic.objects
+  .find({ type: 'projects' })
+  .props('slug,title,metadata')
+  .depth(1)
+  .limit(6)
+---
+
+<SiteLayout className="pb-40">
+  <div class="pt-40">
+    <div class="space-y-4">
+      <GradientHeading
+        client:load
+        className="text-6xl will-change-transform font-semibold"
+        >Works</GradientHeading
+      >
+      <motion.p
+        client:load
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        viewport={{ once: true }}
+        className="text-center mt-4 text-xl text-muted-foreground max-w-lg mx-auto"
+      >
+        Crafting tailored, high-quality solutions with a blend of innovation and
+        technical expertise.
+      </motion.p>
+    </div>
+  </div>
+  <Works objects={objects} client:load />
+</SiteLayout>

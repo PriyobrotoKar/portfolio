@@ -1,0 +1,107 @@
+---
+import { cosmic } from '@/lib/cosmic'
+import { Markdown } from 'astro-remote'
+import Animate from '../Animate'
+
+interface Experience {
+  start_at: string
+  end_at?: string
+  company: string
+  role: string
+  job_description: string
+  company_logo: {
+    url: string
+  }
+}
+
+const {
+  object: { metadata: about }
+} = await cosmic.objects
+  .findOne({
+    type: 'about',
+    slug: 'myself'
+  })
+  .props('slug,title,metadata')
+  .depth(1)
+
+const formatDate = (date: string | undefined) => {
+  if (!date) {
+    return 'Present'
+  }
+
+  return new Date(date).toLocaleDateString('en-IN', {
+    month: 'short',
+    year: 'numeric'
+  })
+}
+---
+
+<section class="space-y-12 mb-40">
+  <h2
+    class="caret-accent-foreground flex items-center uppercase text-md text-muted-foreground font-semibold tracking-wide gap-3"
+  >
+    <Animate
+      client:load
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      <span
+        class="size-2 inline-block shadow-[0_0_14.8px_0_var(--tw-shadow-color)] shadow-foreground rounded-full bg-foreground"
+      ></span>
+    </Animate>
+    <Animate
+      client:load
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      Experience
+    </Animate>
+  </h2>
+
+  <div class="space-y-12">
+    {
+      about.experiences.map((experience: Experience) => (
+        <div class="flex flex-col md:flex-row gap-4 md:gap-10">
+          <Animate
+            client:load
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <div class="text-muted-foreground min-w-max">
+              {formatDate(experience.start_at)} -{' '}
+              {formatDate(experience.end_at)}
+            </div>
+          </Animate>
+          <Animate
+            client:load
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="flex-1"
+          >
+            <div class="space-y-6">
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="font-medium">{experience.role}</h3>
+                  <p class="text-md">{experience.company}</p>
+                </div>
+                <img
+                  src={experience.company_logo.url}
+                  alt={experience.company}
+                  width="45"
+                  height="45"
+                />
+              </div>
+              <div class="text-muted-foreground text-md [&>ul]:list-disc [&>ul]:list-inside max-w-2xl [&>ul]:space-y-2">
+                <Markdown content={experience.job_description} />
+              </div>
+            </div>
+          </Animate>
+        </div>
+      ))
+    }
+  </div>
+</section>

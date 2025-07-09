@@ -1,0 +1,326 @@
+---
+import GradientHeading from '@/components/GradientHeading.tsx'
+import { Button } from '@/components/ui/button.tsx'
+import SiteLayout from '@/layouts/SiteLayout.astro'
+import { cosmic } from '@/lib/cosmic'
+import { getDuration } from '@/lib/utils'
+import Icon from '@/components/Icon'
+import NextProject from '@/components/NextProject.astro'
+import TechStack from '@/components/TechStack.astro'
+import { Markdown } from 'astro-remote'
+import Animate from '@/components/Animate'
+
+export async function getStaticPaths() {
+  const { objects } = await cosmic.objects
+    .find({ type: 'projects' })
+    .props('slug,title,metadata')
+    .depth(1)
+
+  return objects.map(({ slug }: { slug: string }) => ({ params: { slug } }))
+}
+
+const { slug } = Astro.params
+const { object: project } = await cosmic.objects
+  .findOne({ type: 'projects', slug })
+  .props('slug,title,metadata')
+  .options({
+    media: {
+      props: 'alt_text,type,metadata'
+    }
+  })
+  .depth(1)
+
+const isClientProject = project.metadata.type === 'Client'
+---
+
+<SiteLayout>
+  <main class="py-40 sm:py-40 space-y-20">
+    <div class="space-y-7 text-center">
+      <GradientHeading
+        client:load
+        className="text-6xl sm:text-8xl font-semibold text-center"
+        >{project.title}</GradientHeading
+      >
+      {
+        isClientProject && (
+          <a href="https://peerbuildstudios.com" class="inline-block">
+            <Animate
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              client:load
+            >
+              <h2 class="text-md text-muted-foreground leading-tight flex group items-end gap-4 justify-center">
+                A project under
+                <div class="flex items-center md:items-end gap-2">
+                  <img
+                    src="/peerbuild.svg"
+                    alt="Peerbuild Studios"
+                    width="165"
+                    height="29"
+                    class="opacity-50 w-20 md:w-auto group-hover:opacity-100 duration-500 transition-opacity"
+                  />
+                  Studios
+                </div>
+              </h2>
+            </Animate>
+          </a>
+        )
+      }
+    </div>
+    <div
+      style={`background-image: radial-gradient(circle farthest-side at 50% 0, ${project.metadata.primary_color}, #0000);`}
+      class="w-full max-w-screen-2xl aspect-square rounded-[50%] -top-[10%] blur-3xl opacity-20 -z-20 absolute left-1/2 -translate-x-1/2"
+    >
+    </div>
+    <div class="p-6 md:p-20 relative -z-20">
+      <Animate
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        client:load
+      >
+        <img
+          src="/project_bg.svg"
+          alt="laptop frame"
+          width="1300"
+          height="400"
+          class="absolute top-0 left-1/2 -translate-x-1/2 z-0"
+        />
+      </Animate>
+      <Animate
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        client:load
+      >
+        <img
+          src={project.metadata.thumbnail.url}
+          alt={project.title}
+          width="1200"
+          height="800"
+          class="shadow-2xl"
+        />
+      </Animate>
+      <div
+        class="absolute bottom-20 h-full w-screen bg-gradient-to-b from-transparent to-background left-1/2 -translate-x-1/2"
+      >
+      </div>
+    </div>
+
+    <section class="text-muted-foreground space-y-10">
+      <div class="">
+        <h2 class="text-xl font-semibold mb-4 text-foreground">Overview</h2>
+        <p>{project.metadata.overview}</p>
+      </div>
+      <div class="flex prose-ol:space-y-1 flex-col md:flex-row gap-10">
+        <div class="flex-1 space-y-12">
+          <div class="[&>ul]:space-y-2">
+            <h2 class="text-xl font-semibold mb-4 text-foreground">Features</h2>
+            <Markdown content={project.metadata.features_new} />
+          </div>
+          <div>
+            <h2 class="text-xl font-semibold mb-4 text-foreground">Timeline</h2>
+            <p>
+              {
+                getDuration(
+                  project.metadata.started_on,
+                  project.metadata.ended_on
+                )
+              },
+              <span class="text-foreground"
+                >Deployed in {
+                  new Date(project.metadata.ended_on).toLocaleDateString(
+                    'en-US',
+                    {
+                      month: 'long',
+                      year: 'numeric'
+                    }
+                  )
+                }
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-1 space-y-14">
+          <div class="[&>ul]:space-y-2">
+            <h2
+              class="text-xl
+            font-semibold
+            mb-4
+            text-foreground"
+            >
+              Challenges
+            </h2>
+            <Markdown content={project.metadata.challenges_new} />
+          </div>
+          <TechStack techs={project.metadata.tech_stack} />
+          <div class="sm:space-x-4">
+            <a href={project.metadata.live_link}>
+              <Button variant={'secondary'}
+                ><Icon iconName="FiGlobe" client:load />Visit Site</Button
+              >
+            </a>
+            <a href={project.metadata.github_repo}>
+              <Button variant={'secondary'}
+                ><Icon iconName="FiGithub" client:load />View on Github</Button
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="bg-card/80 relative rounded-xl border border-border py-12 px-8 shadow-[0px_12px_45px_5px_var(--tw-shadow-color)] overflow-hidden shadow-black"
+    >
+      <div
+        class="absolute -top-40 left-1/2 -translate-x-1/2 w-[30rem] blur-3xl bg-yellow-300/10 aspect-video rounded-[50%]"
+      >
+      </div>
+      <div class="space-y-2 mb-12">
+        <div
+          class="w-fit rounded-full bg-gradient-to-t mx-auto p-0.5 from-yellow-300/10 to-yellow-300"
+        >
+          <div class="bg-background rounded-full">
+            <div class="bg-yellow-300/10 p-1 rounded-full">
+              <Icon
+                client:load
+                size={24}
+                className="text-yellow-300"
+                iconName="RiStarSFill"
+              />
+            </div>
+          </div>
+        </div>
+        <h2
+          class="text-center text-md font-semibold tracking-widest text-muted-foreground uppercase"
+        >
+          Highlights
+        </h2>
+        <p class="text-lg font-semibold text-center">
+          Showcasing Major Milestones and the Key Features
+        </p>
+      </div>
+      <div class="space-y-12">
+        {
+          project.metadata.highlights.map(
+            (
+              highlight: {
+                url: string
+                metadata: { data: string }
+                type: string
+              },
+              i: number
+            ) => {
+              const isImage = highlight.type.startsWith('image/')
+              return (
+                <div class="text-muted-foreground space-y-4">
+                  <div class="w-full overflow-hidden border border-border rounded-xl">
+                    {isImage ? (
+                      <img
+                        src={highlight.url}
+                        alt={highlight.metadata.data}
+                        width="600"
+                        height="600"
+                        class="w-full "
+                      />
+                    ) : (
+                      <video
+                        src={highlight.url}
+                        autoplay
+                        loop
+                        muted
+                        class="w-full scale-[1.01] "
+                      />
+                    )}
+                  </div>
+                  <div class="flex items-end justify-end text-xs gap-2">
+                    <p>
+                      <span class="font-bold">{((i + 1) / 10).toFixed(1)}</span>
+                      {highlight.metadata.data}
+                    </p>
+                    <span class="uppercase bg-border px-2 py-0.5 rounded-full ">
+                      {isImage ? 'Image' : 'Video'}
+                    </span>
+                  </div>
+                </div>
+              )
+            }
+          )
+        }
+      </div>
+    </section>
+    {
+      isClientProject && (
+        <section class="flex flex-col-reverse md:flex-row text-center md:text-left justify-between py-16 items-center gap-8 md:gap-16">
+          <div class="flex-[2_1_0%]">
+            <GradientHeading
+              client:load
+              className="text-4xl md:text-5xl mb-4 mx-0 font-medium max-w-xl leading-tight"
+            >
+              Give your brand a voice.
+            </GradientHeading>
+            <Animate
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              client:load
+            >
+              <p class="text-xl font-medium text-muted-foreground">
+                Connect with us today
+              </p>
+            </Animate>
+
+            <div class="space-y-4 md:space-x-4 mt-4">
+              <a href="mailto:peerbuild@gmail.com" class="inline-block">
+                <Animate
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  client:load
+                >
+                  <Button>
+                    <Icon client:load iconName="FiMail" />
+                    peerbuild@gmail.com
+                  </Button>
+                </Animate>
+              </a>
+              <a href="https://peerbuildstudios.com" class="inline-block">
+                <Animate
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                  client:load
+                >
+                  <Button variant={'secondary'}>
+                    <Icon client:load iconName="FiLink" />
+                    peerbuildstudios.com
+                  </Button>
+                </Animate>
+              </a>
+            </div>
+          </div>
+          <div class="flex-1">
+            <Animate
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              whileInView={{ opacity: 1, filter: 'blur(0)' }}
+              transition={{ duration: 0.8, delay: 1 }}
+              client:load
+            >
+              <img
+                class="w-40 md:w-full"
+                src="/peerbuild.svg"
+                alt="Peerbuild Studios"
+                width="392"
+                height="70"
+              />
+            </Animate>
+          </div>
+        </section>
+      )
+    }
+    <hr class="border border-border" />
+    <NextProject next={project.metadata.next_project} />
+  </main>
+</SiteLayout>

@@ -1,0 +1,79 @@
+---
+import { cosmic } from '@/lib/cosmic'
+import { motion } from 'framer-motion'
+import '@fontsource/dm-serif-display/400-italic.css'
+import GradientHeading from '@/components/GradientHeading.tsx'
+
+const {
+  object: { metadata: details }
+} = await cosmic.objects
+  .findOne({
+    type: 'personal-details',
+    slug: 'details'
+  })
+  .props('slug,title,metadata')
+  .depth(1)
+
+const styles = [
+  'rotate-[10deg] translate-y-20 scale-150 md:scale-105',
+  'rotate-[4deg] -translate-y-20',
+  '-rotate-12 translate-y-10 scale-150 md:scale-110',
+  '-rotate-[20deg] -translate-y-10 scale-150 md:scale-100',
+  '-rotate-3 -translate-y-32 scale-150 md:scale-100'
+]
+---
+
+<section
+  class="min-h-[80svh] md:min-h-[60svh] flex justify-start items-center relative my-20 md:my-64"
+>
+  <GradientHeading
+    client:load
+    className="text-5xl  md:text-8xl xl:min-w-[64rem] max-w-none"
+  >
+    I develop
+    <span class="font-bold text-shadow">Mobile Apps</span> and <span
+      class="font-serif font-normal italic">Web experiences</span
+    >.
+  </GradientHeading>
+  <div
+    class="absolute w-screen left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 max-h-screen opacity-20 -z-20 overflow-hidden"
+  >
+    <div
+      class="absolute w-full h-full md:h-screen bg-gradient-to-t from-background via-transparent to-background z-0"
+    >
+    </div>
+    <div
+      class="relative my-auto -z-20 grid grid-cols-3 auto-cols-fr w-full gap-y-[25rem] md:gap-y-64"
+    >
+      {
+        details.highlights.map(
+          ({ image }: { image: { url: string } }, i: number) => {
+            return (
+              <div
+                class={i === details.highlights.length - 1 ? 'col-start-3' : ''}
+              >
+                <motion.img
+                  initial={{
+                    opacity: 0
+                  }}
+                  whileInView={{
+                    opacity: 1
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: i * 0.2 + 0.5
+                  }}
+                  viewport={{ once: true }}
+                  className={`${styles[i]}`}
+                  client:load
+                  src={image.url}
+                  width="100%"
+                />
+              </div>
+            )
+          }
+        )
+      }
+    </div>
+  </div>
+</section>

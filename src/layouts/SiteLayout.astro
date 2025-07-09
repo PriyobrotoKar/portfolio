@@ -1,8 +1,19 @@
 ---
-import "@fontsource-variable/dm-sans";
-import "@/styles/globals.css";
-import NoiseOverlay from "@/components/NoiseOverlay.astro";
-import Spotlight from "@/components/Spotlight.astro";
+import '@fontsource-variable/dm-sans'
+import '@/styles/globals.css'
+import NoiseOverlay from '@/components/NoiseOverlay.astro'
+import Spotlight from '@/components/Spotlight.astro'
+import Header from '@/components/Header'
+import { Toaster } from '@/components/ui/sonner'
+import Footer from '@/components/home/Footer/Footer.astro'
+import { cn } from '@/lib/utils'
+
+interface Props {
+  showFooter?: boolean
+  className?: string
+}
+
+const { showFooter = true, className } = Astro.props
 ---
 
 <html lang="en">
@@ -14,8 +25,15 @@ import Spotlight from "@/components/Spotlight.astro";
     <title>Priyobroto Kar — Software Developer</title>
   </head>
   <body class="dark dark:bg-background relative overflow-x-hidden">
+    <Toaster client:load richColors />
     <Spotlight />
     <NoiseOverlay />
-    <slot />
+    <Header client:idle />
+
+    <div class={cn('max-w-screen-lg min-h-svh mx-auto px-6', className)}>
+      <slot />
+    </div>
+
+    {showFooter && <Footer />}
   </body>
 </html>

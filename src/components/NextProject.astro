@@ -1,0 +1,50 @@
+---
+import Animate from './Animate'
+import Card from './Card'
+
+interface Props {
+  next: {
+    title: string
+    slug: string
+    metadata: {
+      overview: string
+      thumbnail: {
+        url: string
+      }
+      primary_color: string
+    }
+  }
+}
+
+const { next } = Astro.props
+if (!next) {
+  return null
+}
+---
+
+<section>
+  <Animate
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    client:load
+  >
+    <h2 class="mb-10 text-4xl font-semibold text-muted-foreground">
+      Next Project
+    </h2>
+  </Animate>
+  <Animate
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.5 }}
+    client:load
+  >
+    <Card
+      client:load
+      href={`/projects/${next.slug}`}
+      title={next.title}
+      metadata={next.metadata}
+      size="large"
+    />
+  </Animate>
+</section>

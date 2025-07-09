@@ -1,0 +1,35 @@
+---
+type Tech = {
+  title: string;
+  metadata: {
+    logo: {
+      url: string;
+    };
+  };
+};
+interface Props {
+  techs: Tech[];
+}
+const { techs } = Astro.props;
+---
+
+<section>
+  <h2 class="text-xl font-semibold mb-4 text-foreground">Tech Stack</h2>
+  <div class="flex gap-x-8 gap-y-4 flex-wrap">
+    {
+      techs.map((tech) => {
+        return (
+          <div class="flex gap-2 items-center">
+            <img
+              src={tech.metadata.logo.url}
+              alt={tech.title}
+              width="28"
+              height="28"
+            />
+            <span>{tech.title}</span>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>

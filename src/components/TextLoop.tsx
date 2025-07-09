@@ -18,8 +18,6 @@ const TextLoop = ({ words }: { words: string[] }) => {
 
   const startInterval = (duration: number) => {
     return setInterval(() => {
-      console.log("interval called", index);
-
       setIndex((prev) => {
         let next = prev + 1;
         if (next === words.length) {
